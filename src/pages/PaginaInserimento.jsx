@@ -1,3 +1,5 @@
-export default function PaginaInserimento() {
+function PaginaInserimento() {
 
 }
+
+export default PaginaInserimento

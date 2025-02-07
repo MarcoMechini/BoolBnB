@@ -1,3 +1,5 @@
-export default function PaginaRicerca() {
+function PaginaRicerca() {
 
 }
+
+export default PaginaRicerca
