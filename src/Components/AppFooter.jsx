@@ -1,11 +1,11 @@
-function AppFooter () {
-return(
-<>
-<h3>sono Footer</h3>
-</>
+function AppFooter() {
+    return (
+        <>
+            <h3>sono Footer</h3>
+        </>
 
 
-)
+    )
 
 
 

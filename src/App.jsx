@@ -11,8 +11,8 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes element={<AppLayout />}>
-          <Route>
+        <Routes>
+          <Route element={<AppLayout />}>
             <Route index element={<HomePage />}></Route>
             <Route path='/Dettaglio'>
               <Route index element={<PaginaRicerca />}></Route>
