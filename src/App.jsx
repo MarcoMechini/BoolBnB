@@ -1,5 +1,10 @@
 import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import AppLayout from './Layout/AppLayout'
+import HomePage from './pages/HomePage'
+import PaginaRicerca from './pages/PaginaRicerca'
+import PaginaDettaglio from './pages/PaginaDettaglio'
+import PaginaInserimento from './pages/PaginaInserimento'
 
 function App() {
 

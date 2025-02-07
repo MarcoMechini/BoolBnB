@@ -1,18 +1,20 @@
 import { Outlet } from "react-router-dom";
-import AppFooter from "../Componenti/AppFooter";
-import AppHeader from "../Componenti/AppHeader";
+import AppFooter from "../Components/AppFooter";
+import AppHeader from "../Components/AppHeader";
 
-function AppLayout ( ) {
-return(
+function AppLayout() {
+    return (
 
-    <>
-    <AppHeader />
-    <Outlet/>
-    <AppFooter/>    
-    
-    </>
-)
+        <>
+            <AppHeader />
+            <Outlet />
+            <AppFooter />
+
+        </>
+    )
 
 
 
 }
+
+export default AppLayout;
