@@ -1,17 +1,19 @@
 import styles from './AppHeader.module.css';
+import AppNavbar from './AppNavbar';
 
 
 
 function AppHeader() {
     return (
         <>
-            <h3 className={`${styles.Header}`}>sono Header</h3>
+        <header className={`${styles.Header}`}>
+            <div>
+         <AppNavbar /> </div>
+            <h3 >sono Header</h3>
+            <div>logo</div>
+            </header>
         </>
-
-
     )
-
-
 
 }
 
