@@ -1,8 +1,9 @@
 function PaginaDettaglio() {
-return(
-    <>
-    </>
-)
+    return (
+        <>
+            <h3>sono pagina dettaglio</h3>
+        </>
+    )
 
 }
 
