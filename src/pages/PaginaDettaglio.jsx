@@ -1,9 +1,10 @@
-function PaginaDettaglio() {
-    console.log('sono dettaglio');
+import { useParams } from "react-router-dom";
 
+function PaginaDettaglio() {
+    const { id } = useParams()
     return (
         <>
-            <h3>sono pagina dettaglio</h3>
+            <h3>sono pagina dettaglio {id}</h3>
         </>
     )
 
