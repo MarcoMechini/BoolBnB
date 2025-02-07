@@ -6,8 +6,8 @@ const navMenu = [
         title: 'Home'
     },
     {
-        path: '/Dettaglio',
-        title: 'Dettaglio'
+        path: '/Ricerca',
+        title: 'Ricerca'
     },
     {
         path: '/Inserimento',

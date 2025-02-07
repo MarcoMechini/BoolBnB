@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route element={<AppLayout />}>
             <Route index element={<HomePage />}></Route>
-            <Route path='/Dettaglio'>
+            <Route path='/Ricerca'>
               <Route index element={<PaginaRicerca />}></Route>
               <Route path=':id' element={<PaginaDettaglio />}></Route>
             </Route>
