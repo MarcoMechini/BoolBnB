@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  ul li,
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  img{
+    max-width: 100%;
+  }

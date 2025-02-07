@@ -1,7 +1,11 @@
+import styles from './AppHeader.module.css';
+
+
+
 function AppHeader() {
     return (
         <>
-            <h3>sono Header</h3>
+            <h3 className={`${styles.Header}`}>sono Header</h3>
         </>
 
 
