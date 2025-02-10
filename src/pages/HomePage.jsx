@@ -1,14 +1,15 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function HomePage() {
 //  creo un array simulato per simulare il funzionamento della searchbar
 const cities = [
-    { name: 'Roma', country: 'Italia' },
-    { name: 'Milano', country: 'Italia' },
-    { name: 'Londra', country: 'Regno Unito' },
-    { name: 'Parigi', country: 'Francia' },
-    { name: 'New York', country: 'USA' },
-    { name: 'Los Angeles', country: 'USA' }
+    { name: 'Roma', country: 'Italia', id:1 },
+    { name: 'Milano', country: 'Italia',id:2 },
+    { name: 'Londra', country: 'Regno Unito',id:3 },
+    { name: 'Parigi', country: 'Francia',id:4 },
+    { name: 'New York', country: 'USA',id:5 },
+    { name: 'Los Angeles', country: 'USA',id:6 }
   ];
 
 // CREO LO USE STATE PER LA SEARCHBAR
@@ -47,8 +48,10 @@ onChange={(e) => setSearch(e.target.value)} />
 {/* risultato ricerca */}
 
 {filtroCittà.length > 0 ? (
-    filtroCittà.map((city, index) =>(
-        <div key={index}>{city.name} - {city.country} </div>
+    filtroCittà.map((city) =>(
+        // qui dentro svilupperò la card delle case
+        
+        <div key={city.id}><Link to={`/Ricerca/${city.id}`}>{city.name} - {city.country}</Link> </div>
     ))
 ) : ( <p>nessuna casa trovata in questa città</p> ) }
 
