@@ -13,11 +13,18 @@ const cities = [
 
 // CREO LO USE STATE PER LA SEARCHBAR
 const [search, setSearch] = useState("");
+const [filtroCittà, setFiltroCittà] = useState(cities);
+
 
 // filtro le città in base al termine di ricerca
-const filtroCittà = cities.filter(city =>
+const ricercaManuale = () => { 
+    const filtro = cities.filter(city =>
     city.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
 );
+setFiltroCittà(filtro)
+setSearch("");
+};
+
 
 
 
@@ -32,6 +39,10 @@ return(
 placeholder="Cerca per città"
 value={search}
 onChange={(e) => setSearch(e.target.value)} />
+{/* inserisco bottone ricerca */}
+
+<button type="button" onClick={ricercaManuale}>Cerca</button>
+
 
 {/* risultato ricerca */}
 
