@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage'
 import PaginaRicerca from './pages/PaginaRicerca'
 import PaginaDettaglio from './pages/PaginaDettaglio'
 import PaginaInserimento from './pages/PaginaInserimento'
+import { GlobalProvider } from './context/GlobalContext'
 
 function App() {
 
