@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function HomePage() {
 //  creo un array simulato per simulare il funzionamento della searchbar
@@ -15,6 +15,7 @@ const cities = [
 // CREO LO USE STATE PER LA SEARCHBAR
 const [search, setSearch] = useState("");
 const [filtroCittà, setFiltroCittà] = useState(cities);
+const navigate = useNavigate();
 
 
 // filtro le città in base al termine di ricerca
@@ -24,6 +25,8 @@ const ricercaManuale = () => {
 );
 setFiltroCittà(filtro)
 setSearch("");
+
+navigate("/Ricerca" ,{ state: {filtroCittà: filtro}});
 };
 
 
