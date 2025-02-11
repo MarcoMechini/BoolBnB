@@ -19,8 +19,8 @@ function PaginaRicerca() {
             <div>
                 <h1>Risultati della ricerca</h1>
                 {filtroCittà.length > 0 ? (
-                 filtroCittà.map((city) => (
-                    <div key={city.id}><Link to={`/Ricerca/${city.id}`}>{city.name} - {city.country}</Link> </div>
+                 filtroCittà.map((curCasa) => (
+                    <div key={curCasa.id}><Link to={`/Ricerca/${curCasa.id}`}>{curCasa.city} - {curCasa.title}</Link> </div>
                     ))
                 ) : (
                     <p>Usa la ricerca vanzata per trovare quello che cerchi</p>

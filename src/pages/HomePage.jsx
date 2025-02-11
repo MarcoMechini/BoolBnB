@@ -1,27 +1,31 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function HomePage() {
-//  creo un array simulato per simulare il funzionamento della searchbar
-const cities = [
-    { name: 'Roma', country: 'Italia', id:1 },
-    { name: 'Milano', country: 'Italia',id:2 },
-    { name: 'Londra', country: 'Regno Unito',id:3 },
-    { name: 'Parigi', country: 'Francia',id:4 },
-    { name: 'New York', country: 'USA',id:5 },
-    { name: 'Los Angeles', country: 'USA',id:6 }
-  ];
 
 // CREO LO USE STATE PER LA SEARCHBAR
 const [search, setSearch] = useState("");
-const [filtroCittà, setFiltroCittà] = useState(cities);
+const [filtroCittà, setFiltroCittà] = useState([]);
 const navigate = useNavigate();
+
+useEffect(()=>{
+    caricamentoDati();
+},[]);
+
+const caricamentoDati = () => {
+    axios.get('http://localhost:4000/boolbnb').then((resp) => {
+        console.log(resp.data.data);
+        setFiltroCittà(resp.data.data);
+    })
+  };
+
 
 
 // filtro le città in base al termine di ricerca
 const ricercaManuale = () => { 
-    const filtro = cities.filter(city =>
-    city.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+    const filtro = filtroCittà.filter(casa =>
+    casa.city.toLocaleLowerCase().includes(search.toLocaleLowerCase())
 );
 setFiltroCittà(filtro)
 setSearch("");
@@ -51,12 +55,14 @@ onChange={(e) => setSearch(e.target.value)} />
 {/* risultato ricerca */}
 
 {filtroCittà.length > 0 ? (
-    filtroCittà.map((city) =>(
+    filtroCittà.map((curCasa) =>(
         // qui dentro svilupperò la card delle case
         
-        <div key={city.id}><Link to={`/Ricerca/${city.id}`}>{city.name} - {city.country}</Link> </div>
+        <div key={curCasa.id}><Link to={`/Ricerca/${curCasa.id}`}>{curCasa.city} - {curCasa.title}</Link> </div>
     ))
 ) : ( <p>nessuna casa trovata in questa città</p> ) }
+
+
 </section>
 
 </>
