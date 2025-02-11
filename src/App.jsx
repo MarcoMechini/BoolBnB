@@ -10,18 +10,20 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route index element={<HomePage />}></Route>
-            <Route path='/Ricerca'>
-              <Route index element={<PaginaRicerca />}></Route>
-              <Route path=':id' element={<PaginaDettaglio />}></Route>
+      <GlobalProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route index element={<HomePage />}></Route>
+              <Route path='/Ricerca'>
+                <Route index element={<PaginaRicerca />}></Route>
+                <Route path=':id' element={<PaginaDettaglio />}></Route>
+              </Route>
+              <Route path='/Inserimento' element={<PaginaInserimento />}></Route>
             </Route>
-            <Route path='/Inserimento' element={<PaginaInserimento />}></Route>
-          </Route>
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </GlobalProvider>
     </>
   )
 }
