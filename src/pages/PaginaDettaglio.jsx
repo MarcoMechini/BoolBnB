@@ -26,6 +26,7 @@ function PaginaDettaglio() {
 
     return (
         <>
+        <section className="container">
         <button onClick={() => navigate(-1)}>Indietro</button>
             <h3>sono pagina dettaglio {id}</h3>
         
@@ -68,7 +69,7 @@ function PaginaDettaglio() {
       <button type="submit">Invia Recensione</button>
     </form>
 
-
+</section>
         </>
     )
 

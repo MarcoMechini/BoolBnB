@@ -11,3 +11,11 @@
   img{
     max-width: 100%;
   }
+
+  .container{
+    margin: 0 auto;
+    max-width: 1200px;
+     width: 80%;
+    height: calc(100dvh - 195px);
+    text-align: center;
+}

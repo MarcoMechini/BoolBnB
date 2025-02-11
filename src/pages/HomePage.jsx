@@ -35,7 +35,7 @@ navigate("/Ricerca" ,{ state: {filtroCittà: filtro}});
 
 return(
 <>
-
+<section className="container">
 <h1>Home Page</h1>
 
 {/* barra di ricerca */}
@@ -57,7 +57,7 @@ onChange={(e) => setSearch(e.target.value)} />
         <div key={city.id}><Link to={`/Ricerca/${city.id}`}>{city.name} - {city.country}</Link> </div>
     ))
 ) : ( <p>nessuna casa trovata in questa città</p> ) }
-
+</section>
 
 </>
 
