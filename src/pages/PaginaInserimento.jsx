@@ -3,13 +3,6 @@ import { useEffect, useState } from "react"
 
 const apiUrl = import.meta.env.VITE_API_URL
 
-// const property = [
-//     { type: "appartamento", value: 1 },
-//     { type: "baita", value: 2 },
-//     { type: "villa", value: 3 },
-//     { type: "casa indipendente", value: 4 },
-// ]
-
 // id_property: 1,
 // title: "",
 // city: "",
@@ -125,8 +118,8 @@ function PaginaInserimento() {
                     <input type="email" onChange={handleInputChange} value={formData.email} name="email" id="email" placeholder="example@gmail.com" />
                 </div>
                 <div>
-                    <label htmlFor="descr">Descrizione</label>
-                    <input type="text" onChange={handleInputChange} value={formData.descr} name="descr" id="descr" placeholder="Appartamento luminoso" />
+                    {/* <label htmlFor="descr">Descrizione</label> */}
+                    <textarea onChange={handleInputChange} value={formData.descr} name="descr" id="descr" rows="4" placeholder="Appartamento luminoso" />
                 </div>
                 <button onClick={handleSubmit}>Invia</button>
             </form>
