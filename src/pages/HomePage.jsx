@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import styles from './HomePage.module.css';
 function HomePage() {
 
     // CREO LO USE STATE PER LA SEARCHBAR
@@ -53,27 +53,28 @@ function HomePage() {
 
 
                 {/* risultato ricerca */}
-
-                {filtroCittà.length > 0 ? (
-                    filtroCittà.map((curCasa) => (
-                        // qui dentro svilupperò la card delle case
-                        <div key={curCasa.id}>
-                            <div>{curCasa.city}</div>
-                            <div>{curCasa.address}</div>
-                            <div>{curCasa.title}</div>
-                            <div>{curCasa.descr}</div>
-                            <div>Stanze:{curCasa.rooms}</div>
-                            <div>Bagni:{curCasa.bathrooms}</div>
-                            <div>Camere da letto: {curCasa.bedrooms}</div>
-                            <div>{curCasa.squere_meters}</div>
-                            <div>Like{curCasa.likes}</div>
-                            <div>{curCasa.url_img}</div>
-                            <Link to={`/Ricerca/${curCasa.id}`}>INFO</Link> 
+                <section className={`${styles.containerHome}`}>
+                    {filtroCittà.length > 0 ? (
+                        filtroCittà.map((curCasa) => (
+                            // qui dentro svilupperò la card delle case
+                            <div key={curCasa.id} className={`${styles.card}`}>
+                                <div>{curCasa.city}</div>
+                                <div>{curCasa.address}</div>
+                                <div>{curCasa.title}</div>
+                                <div>{curCasa.descr}</div>
+                                <div>Mq:{curCasa.square_meters}</div>
+                                <div>Stanze:{curCasa.rooms}</div>
+                                <div>Bagni:{curCasa.bathrooms}</div>
+                                <div>Camere da letto: {curCasa.bedrooms}</div>
+                                <div>{curCasa.squere_meters}</div>
+                                <div>Like{curCasa.likes}</div>
+                                <div>{curCasa.url_img}</div>
+                                <Link to={`/Ricerca/${curCasa.id}`}>INFO</Link>
                             </div>
-                    ))
-                ) : (<p>nessuna casa trovata in questa città</p>)}
+                        ))
+                    ) : (<p>nessuna casa trovata in questa città</p>)}
 
-
+                </section>
             </section>
 
         </>

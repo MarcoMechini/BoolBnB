@@ -1,12 +1,26 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 function PaginaDettaglio() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [reviewText, setReviewText] = useState('');
+    const [casaSelezionata, setCasaSelezionata] = useState(null);
     const navigate = useNavigate()
     const { id } = useParams()
+
+
+// faccio la chiamata axios per prendere i dati in entrata basandomi sull'id dell use params
+const caricoCasa = () => {
+  axios.get(`http://localhost:4000/boolbnb/${id}`, { params: { id } }).then((resp) => {
+    setCasaSelezionata (resp.data.data); 
+  })
+};
+
+useEffect(()=> {
+    caricoCasa();
+},[id])
 
 
      // Funzione per gestire l'invio del form
@@ -29,6 +43,18 @@ function PaginaDettaglio() {
         <section className="container">
         <button onClick={() => navigate(-1)}>Indietro</button>
             <h3>sono pagina dettaglio {id}</h3>
+    
+                {/* Controlla se la casa è stata caricata */}
+                {casaSelezionata ? (
+                <div>
+                    <h4>{casaSelezionata.title}</h4> 
+                    
+                </div>
+            ) : (
+                <p>Caricamento della casa in corso...</p>
+            )}
+
+
         
             <form onSubmit={handleSubmit}>
       <div>

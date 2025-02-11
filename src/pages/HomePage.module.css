@@ -1,0 +1,14 @@
+.card{
+    background-color: lightcyan;
+    padding: 5px;
+    margin: 2px;
+    width: 200px;
+}
+.containerHome{
+    margin: 0 auto;
+    max-width: 1200px;
+     width: 80%;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
