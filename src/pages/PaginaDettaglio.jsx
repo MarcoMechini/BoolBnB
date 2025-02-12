@@ -30,12 +30,29 @@ function PaginaDettaglio() {
     e.preventDefault();
     console.log('Recensione inviata:', { name, email, reviewText, giorni });
 
-    // Resetta i campi del form dopo l'invio
-    setName('');
-    setEmail('');
-    setReviewText('');
-    setGiorni('');
-  };
+// Crea un oggetto con i dati da inviare
+const nuovaRecensione = {
+  user_email: name,         
+  email: email,           
+  reviewContent: reviewText, 
+  lengthOfDay: giorni  
+};
+
+// faccio il put per mandare la recensione in be
+axios.post(`http://localhost:4000/boolbnb/${id}/review`, nuovaRecensione)
+.then(resp => {
+  console.log(resp.data);
+  // Resetta i campi del form dopo l'invio
+  setName('');
+  setEmail('');
+  setReviewText('');
+  setGiorni('');
+})
+.catch(err => {
+  console.log(err);
+});
+};
+
 
 
   return (
@@ -55,7 +72,7 @@ function PaginaDettaglio() {
 
 
 
-        <form onSubmit={handleSubmit}>
+        <form >
           <div>
             <label htmlFor="name">Nome:</label>
             <input
@@ -102,7 +119,7 @@ function PaginaDettaglio() {
             />
           </div>
 
-          <button type="submit">Invia Recensione</button>
+          <button onClick={handleSubmit} type="submit">Invia Recensione</button>
         </form>
 
       </section>
@@ -122,6 +139,5 @@ function PaginaDettaglio() {
   )
 
 }
-
 export default PaginaDettaglio;
 
