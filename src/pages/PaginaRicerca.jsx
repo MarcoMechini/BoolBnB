@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import AppLike from "../Components/AppLike";
 
 const apiUrl = import.meta.env.VITE_API_URL
 
@@ -21,6 +22,7 @@ function PaginaRicerca() {
     const navigate = useNavigate()
     const [filter, setFilter] = useState(initialFiletrs)
     const [property, setProperty] = useState([])
+    const [flag, setFlag] = useState(0);
 
     const handleInputChange = (e) => {
         setFilter({ ...filter, [e.target.name]: e.target.value })
@@ -30,7 +32,7 @@ function PaginaRicerca() {
         axios.get(`${apiUrl}/boolbnb/property`).then(resp => {
             setProperty(resp.data.data)
         })
-    }, [])
+    }, [flag])
 
 
     //stanze posti letto e tipo immobile
@@ -111,7 +113,10 @@ function PaginaRicerca() {
                     <h1>Risultati della ricerca</h1>
                     {filtroCittà.length > 0 ? (
                         filtroCittà.map((curCasa) => (
-                            <div key={curCasa.id}><Link to={`/Ricerca/${curCasa.id}`}>{curCasa.city} - {curCasa.title}</Link> </div>
+                            <div key={curCasa.id}><Link to={`/Ricerca/${curCasa.id}`}>
+                                {curCasa.city} - {curCasa.title}</Link>
+                                <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike>
+                            </div>
                         ))
                     ) : (
                         <p>Usa la ricerca vanzata per trovare quello che cerchi</p>

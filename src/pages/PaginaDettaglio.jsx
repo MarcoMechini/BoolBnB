@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import AppLike from "../Components/AppLike";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function PaginaDettaglio() {
@@ -9,6 +10,7 @@ function PaginaDettaglio() {
   const [reviewText, setReviewText] = useState('');
   const [giorni, setGiorni] = useState('');
   const [casaSelezionata, setCasaSelezionata] = useState();
+  const [flag, setFlag] = useState(0);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -24,7 +26,7 @@ function PaginaDettaglio() {
 
   useEffect(() => {
     caricoCasa();
-  }, [id])
+  }, [id, flag])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -139,6 +141,7 @@ function PaginaDettaglio() {
             <div>{curRecensione.review_content}</div>
           </div>
         ))}
+        <AppLike flag={flag} setFlag={setFlag} id={id}></AppLike>
       </section>
     </>
   )
