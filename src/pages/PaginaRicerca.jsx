@@ -36,8 +36,6 @@ function PaginaRicerca() {
     //stanze posti letto e tipo immobile
     const ricercaMulti = () => {
 
-        console.log('filter', filter);
-
         const filtersArr = []
         console.log(filter);
         let url = `${apiUrl}/boolbnb/search`;
@@ -57,7 +55,7 @@ function PaginaRicerca() {
         }
         // fine popolazione array dei filtri
         // controllo se ci sono dei filtri ne caso concateno il punto interrogativo all'url per permettere di metter i parametri
-        if (filter.city !== '' || filter.bedrooms !== '' || filter.bathrooms !== '' || filter.id_property !== 0) {
+        if (filter.city !== '' || filter.bedrooms !== '' || filter.bathrooms !== '' || filter.id_property > 0) {
             url += '?'
         }
 
@@ -65,9 +63,6 @@ function PaginaRicerca() {
         if (filtersArr) {
             url += filtersArr.join('&')
         }
-
-        console.log('url', url);
-
 
         //chiamata in get con l'url creato precedenemtente
         axios.get(url).then(resp => (
