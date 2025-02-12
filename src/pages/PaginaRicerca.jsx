@@ -30,17 +30,18 @@ function PaginaRicerca() {
         axios.get(`${apiUrl}/boolbnb/property`).then(resp => {
             setProperty(resp.data.data)
         })
-        // console.log('filtro città', filtroCittà);
     }, [])
 
 
     //stanze posti letto e tipo immobile
     const ricercaMulti = () => {
 
+        console.log('filter', filter);
+
         const filtersArr = []
         console.log(filter);
         let url = `${apiUrl}/boolbnb/search`;
-        // ?bathrooms=1&city=Roma&bedrooms=2&id_property=2
+
         // inizio popolazione array dei filtri
         if (filter.city) {
             filtersArr.push(`city=${filter.city}`)
@@ -51,7 +52,7 @@ function PaginaRicerca() {
         if (filter.bedrooms) {
             filtersArr.push(`bedrooms=${filter.bedrooms}`)
         }
-        if (filter.id_property) {
+        if (filter.id_property > 0) {
             filtersArr.push(`id_property=${filter.id_property}`)
         }
         // fine popolazione array dei filtri
@@ -64,6 +65,9 @@ function PaginaRicerca() {
         if (filtersArr) {
             url += filtersArr.join('&')
         }
+
+        console.log('url', url);
+
 
         //chiamata in get con l'url creato precedenemtente
         axios.get(url).then(resp => (
@@ -99,6 +103,7 @@ function PaginaRicerca() {
                         onChange={handleInputChange}
                         value={filter.id_property}
                     >
+                        <option key='0' value='0'>Tutte</option>
                         {property.map(curProp => (
                             <option key={curProp.id} value={curProp.id}>{curProp.type}</option>
                         ))}
