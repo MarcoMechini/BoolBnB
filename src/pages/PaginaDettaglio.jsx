@@ -32,8 +32,8 @@ function PaginaDettaglio() {
 
 // Crea un oggetto con i dati da inviare
 const nuovaRecensione = {
-  user_email: name,         
-  email: email,           
+  username: name,         
+  user_email: email,           
   reviewContent: reviewText, 
   lengthOfDay: giorni  
 };
@@ -42,11 +42,16 @@ const nuovaRecensione = {
 axios.post(`http://localhost:4000/boolbnb/${id}/review`, nuovaRecensione)
 .then(resp => {
   console.log(resp.data);
+  console.log(casaSelezionata,"log di casa selezionata" );
+  
+  
+  
   // Resetta i campi del form dopo l'invio
   setName('');
   setEmail('');
   setReviewText('');
   setGiorni('');
+  caricoCasa();
 })
 .catch(err => {
   console.log(err);
