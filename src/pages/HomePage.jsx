@@ -28,13 +28,11 @@ function HomePage() {
             casa.city.toLocaleLowerCase().includes(search.toLocaleLowerCase())
         );
         setFiltroCittà(filtro)
+
         setSearch("");
 
-        navigate("/Ricerca", { state: { filtroCittà: filtro } });
+        navigate("/Ricerca", { state: { filtroCittà: filtro, city: search } });
     };
-
-
-
 
 
     return (
