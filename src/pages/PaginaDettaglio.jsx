@@ -11,12 +11,12 @@ function PaginaDettaglio() {
   const [casaSelezionata, setCasaSelezionata] = useState();
   const navigate = useNavigate();
   const { id } = useParams();
-  
+
 
 
   // faccio la chiamata axios per prendere i dati in entrata basandomi sull'id dell use params
   const caricoCasa = () => {
-    axios.get(`http://localhost:4000/boolbnb/${id}`, { params: { id } }).then((resp) => {
+    axios.get(`${apiUrl}/boolbnb/${id}`, { params: { id } }).then((resp) => {
       setCasaSelezionata(resp.data.data);
       console.log(resp.data.data, "sono pagina dettaglio");
     })
@@ -30,40 +30,40 @@ function PaginaDettaglio() {
     e.preventDefault();
     console.log('Recensione inviata:', { name, email, reviewText, giorni });
 
-// Crea un oggetto con i dati da inviare
-const nuovaRecensione = {
-  username: name,         
-  user_email: email,           
-  reviewContent: reviewText, 
-  lengthOfDay: giorni  
-};
+    // Crea un oggetto con i dati da inviare
+    const nuovaRecensione = {
+      username: name,
+      user_email: email,
+      reviewContent: reviewText,
+      lengthOfDay: giorni
+    };
 
-// faccio il put per mandare la recensione in be
-axios.post(`http://localhost:4000/boolbnb/${id}/review`, nuovaRecensione)
-.then(resp => {
-  console.log(resp.data);
-  console.log(casaSelezionata,"log di casa selezionata" );
-  
-  
-  
-  // Resetta i campi del form dopo l'invio
-  setName('');
-  setEmail('');
-  setReviewText('');
-  setGiorni('');
-  caricoCasa();
-})
-.catch(err => {
-  console.log(err);
-});
-};
+    // faccio il put per mandare la recensione in be
+    axios.post(`${apiUrl}/boolbnb/${id}/review`, nuovaRecensione)
+      .then(resp => {
+        console.log(resp.data);
+        console.log(casaSelezionata, "log di casa selezionata");
+
+
+
+        // Resetta i campi del form dopo l'invio
+        setName('');
+        setEmail('');
+        setReviewText('');
+        setGiorni('');
+        caricoCasa();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
 
 
   return (
     <>
       <section className="container">
-      <button onClick={() => navigate(-1)}>Indietro</button>
+        <button onClick={() => navigate(-1)}>Indietro</button>
         <h3>sono pagina dettaglio {id}</h3>
 
         {/* Controlla se la casa è stata caricata */}
@@ -133,10 +133,10 @@ axios.post(`http://localhost:4000/boolbnb/${id}/review`, nuovaRecensione)
       <section>
         {casaSelezionata && casaSelezionata.reviews.map((curRecensione, index) => (
           <div key={index}>
-          <div >{curRecensione.username}</div>
-          <div>Notti trascorse:{curRecensione.length_of_stay}</div>
-          <div><strong>Recensione</strong></div>
-          <div>{curRecensione.review_content}</div>
+            <div >{curRecensione.username}</div>
+            <div>Notti trascorse:{curRecensione.length_of_stay}</div>
+            <div><strong>Recensione</strong></div>
+            <div>{curRecensione.review_content}</div>
           </div>
         ))}
       </section>

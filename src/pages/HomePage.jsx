@@ -7,6 +7,8 @@ import AppLike from '../Components/AppLike'
 
 function HomePage() {
 
+    const apiUrl = import.meta.env.VITE_API_URL
+
     // CREO LO USE STATE PER LA SEARCHBAR
     const [search, setSearch] = useState("");
     const [flag, setFlag] = useState(0);
@@ -18,7 +20,7 @@ function HomePage() {
     }, [flag]);
 
     const caricamentoDati = () => {
-        axios.get('http://localhost:4000/boolbnb').then((resp) => {
+        axios.get(`${apiUrl}/boolbnb`).then((resp) => {
             console.log(resp.data.data);
             setFiltroCittà(resp.data.data);
         })
