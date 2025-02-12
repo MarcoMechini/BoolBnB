@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function PaginaDettaglio() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [reviewText, setReviewText] = useState('');
+  const [giorni, setGiorni] = useState('');
   const [casaSelezionata, setCasaSelezionata] = useState();
-  // const [recensione, setRcensione] = useState ([]);
-  const navigate = useNavigate()
-  const { id } = useParams()
+  const navigate = useNavigate();
+  const { id } = useParams();
+  
 
 
   // faccio la chiamata axios per prendere i dati in entrata basandomi sull'id dell use params
@@ -17,8 +19,6 @@ function PaginaDettaglio() {
     axios.get(`http://localhost:4000/boolbnb/${id}`, { params: { id } }).then((resp) => {
       setCasaSelezionata(resp.data.data);
       console.log(resp.data.data, "sono pagina dettaglio");
-
-
     })
   };
 
@@ -26,27 +26,22 @@ function PaginaDettaglio() {
     caricoCasa();
   }, [id])
 
-
-  // Funzione per gestire l'invio del form
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log('Recensione inviata:', { name, email, reviewText });
+    console.log('Recensione inviata:', { name, email, reviewText, giorni });
 
     // Resetta i campi del form dopo l'invio
     setName('');
     setEmail('');
     setReviewText('');
+    setGiorni('');
   };
-
-
-
 
 
   return (
     <>
       <section className="container">
-        <button onClick={() => navigate(-1)}>Indietro</button>
+      <button onClick={() => navigate(-1)}>Indietro</button>
         <h3>sono pagina dettaglio {id}</h3>
 
         {/* Controlla se la casa è stata caricata */}
@@ -81,6 +76,17 @@ function PaginaDettaglio() {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="giorni">Giorni di soggiorno:</label>
+            <input
+              type="number"
+              id="giorni"
+              name="giorni"
+              value={giorni}
+              onChange={(e) => setGiorni(e.target.value)}
               required
             />
           </div>
