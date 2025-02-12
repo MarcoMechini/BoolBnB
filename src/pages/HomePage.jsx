@@ -2,16 +2,20 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from './HomePage.module.css';
+import AppLike from '../Components/AppLike'
+
+
 function HomePage() {
 
     // CREO LO USE STATE PER LA SEARCHBAR
     const [search, setSearch] = useState("");
+    const [flag, setFlag] = useState(0);
     const [filtroCittà, setFiltroCittà] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         caricamentoDati();
-    }, []);
+    }, [flag]);
 
     const caricamentoDati = () => {
         axios.get('http://localhost:4000/boolbnb').then((resp) => {
@@ -68,6 +72,7 @@ function HomePage() {
                                 <div>Like{curCasa.likes}</div>
                                 <div>{curCasa.url_img}</div>
                                 <Link to={`/Ricerca/${curCasa.id}`}>INFO</Link>
+                                <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike>
                             </div>
                         ))
                     ) : (<p>nessuna casa trovata in questa città</p>)}
