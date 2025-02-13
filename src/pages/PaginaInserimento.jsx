@@ -3,45 +3,43 @@ import { useEffect, useState } from "react"
 import * as yup from 'yup';
 const apiUrl = import.meta.env.VITE_API_URL
 
-
-
 const schemaValidazione = yup.object().shape({
-    id_property: yup.number().required("id_proprerty è obbligatorio").positive("deve essere positivo").integer("deve essere un numero intero"),
-    title: yup.string().min(3,"deve essere minimo di tre lettere").max(255,"è troppo lungo").required("inserire il titolo della casa").matches(/[a-zA-Z]/, "Il titolo deve contenere almeno una lettera") ,
-    city: yup.string().min(3,"deve essere minimo di tre lettere").max(100,"è troppo lungo").required("inserire la città").matches(/^[A-Za-z]+$/, "La città deve contenere solo lettere") ,
-    descr: yup.string().max(500,"è troppo lungo").nullable(),
-    rooms: yup.number().required("inserire numero stanze").positive("deve essere positivo").min(1,"deve avere almeno una stanza").integer("deve essere un numero intero").typeError("Devi inserire un numero"),
-    bedrooms: yup.number().min(1,"deve avere almeno una stanza").required("inserire il numero camere").positive("deve essere positivo").integer("deve essere un numero intero").typeError("Devi inserire un numero"),
-    bathrooms: yup.number().min(1,"deve avere almeno una stanza").required("inserire numero bagni").positive("deve essere positivo").integer("deve essere un numero intero").typeError("Devi inserire un numero"),
-    square_meters: yup.number().min(9,"deve avere almeno una stanza").required("inserire metri quadrati").positive("deve essere positivo").integer("deve essere un numero intero").typeError("Devi inserire un numero"),
-    address: yup.string().min(5,"deve avere almeno una stanza").max(255,"è troppo lungo").required("inserire la via "),
-    email: yup.string().email("Email non valida").required("Email obbligatoria"),
+    id_property: yup.number().typeError("Devi inserire un numero").required("id_property è obbligatorio").positive("Deve essere positivo").integer("Deve essere un numero intero"),
+    title: yup.string().min(3, "Deve essere minimo di tre lettere").max(255, "È troppo lungo").matches(/[a-zA-Z]/, "Il titolo deve contenere almeno una lettera").required("Inserire il titolo della casa"),
+    city: yup.string().min(3, "Deve essere minimo di tre lettere").max(100, "È troppo lungo").matches(/^[A-Za-z]+$/, "La città deve contenere solo lettere").required("Inserire la città"), // Prima verifica se è vuoto
+    descr: yup.string().nullable().max(500, "È troppo lungo"),
+    rooms: yup.number().typeError("Devi inserire un numero").required("Inserire numero stanze").positive("Deve essere positivo").integer("Deve essere un numero intero").min(1, "Deve avere almeno una stanza"),
+    bedrooms: yup.number().typeError("Devi inserire un numero").required("Inserire il numero camere").positive("Deve essere positivo").integer("Deve essere un numero intero").min(1, "Deve avere almeno una stanza"),
+    bathrooms: yup.number().typeError("Devi inserire un numero").required("Inserire numero bagni").positive("Deve essere positivo").integer("Deve essere un numero intero").min(1, "Deve avere almeno un bagno"),
+    square_meters: yup.number().typeError("Devi inserire un numero").required("Inserire metri quadrati").positive("Deve essere positivo").integer("Deve essere un numero intero").min(10, "Deve essere almeno 10 metri quadri"),
+    address: yup.string().required("Inserire la via").min(5, "Deve essere minimo di 5 caratteri").max(255, "È troppo lungo"),
+    email: yup.string().required("Email obbligatoria").email("Email non valida"),
 });
 
-//    id_property: 1,
-// title: "",
-// city: "",
-// descr: "",
-// rooms: 0,
-// url_img: "",
-// bedrooms: 0,
-// bathrooms: 0,
-// square_meters: 0,
-// address: "",
-// email: "",
+// id_property: 1,
+// title: "Titoloetto",
+// city: "Roma",
+// descr: "Descrizione della casa di default",
+// rooms: 2,
+// url_img: "immagine.jpg",
+// bedrooms: 2,
+// bathrooms: 2,
+// square_meters: 6,
+// address: "Via di qui",
+// email: "mechin@gmail.com",
 
 const initialFormData = {
-    title: "c",
-    city: "Roma",
-    descr: "Descrizione della casa di default",
-    rooms: 2,
-    url_img: "immagine.jpg",
-    bedrooms: 2,
-    bathrooms: 2,
-    square_meters: 60,
-    address: "Via di qui",
-    email: "mechini48@gmail.com",
-
+    id_property: 0,
+    title: "",
+    city: "",
+    descr: "",
+    rooms: 0,
+    url_img: "",
+    bedrooms: 0,
+    bathrooms: 0,
+    square_meters: 0,
+    address: "",
+    email: "",
 }
 
 function PaginaInserimento() {
@@ -55,7 +53,23 @@ function PaginaInserimento() {
 
     const [formData, setFormData] = useState(initialFormData)
     const [property, setProperty] = useState([])
-    const[errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
+
+    const sendNewHouse = () => {
+        // aggiunere loading per il caricamento
+        // setLoading(true)
+
+        axios.post(`${apiUrl}/boolbnb`, formData)
+            .then(resp => {
+                setFormData(initialFormData)
+                console.log(resp.data.status);
+                // setLoading(false)
+            }
+            ).catch(err => {
+                console.log(err);
+            })
+
+    }
 
     const handleInputChange = (e) => {
         const newObject = { ...formData, [e.target.name]: e.target.value }
@@ -71,35 +85,25 @@ function PaginaInserimento() {
             await schemaValidazione.validate(formData, { abortEarly: false });
             console.log("Dati validi:", formData);
             setErrors({}); // Reset degli errori se la validazione passa
-          } catch (err) {
+            sendNewHouse()
+        } catch (err) {
             const errorMessages = {};
-        
-            if (err.inner) {
-              err.inner.forEach((error) => {
-                errorMessages[error.path] = error.message;
-                console.log(errorMessages); 
-              });
-            } else {
-              // Se err.inner non esiste, gestiamo l'errore singolo
-              errorMessages[err.path] = err.message;
-            }
-        
-        
-            setErrors(errorMessages);
-          }
-          
-        // aggiunere loading per il caricamento
-        // setLoading(true)
 
-        // axios.post(`${apiUrl}/boolbnb`, formData)
-        //     .then(resp => {
-        //         setFormData(initialFormData)
-        //         console.log(resp.data.status);
-        //         // setLoading(false)
-        //     }
-        //     ).catch(err => {
-        //         console.log(err);
-        //     })
+            if (err.inner) {
+                err.inner.forEach((error) => {
+                    errorMessages[error.path] = error.message;
+                    console.log(errorMessages);
+                });
+            } else {
+                // Se err.inner non esiste, gestiamo l'errore singolo
+                errorMessages[err.path] = err.message;
+            }
+
+
+            setErrors(errorMessages);
+        }
+
+
     }
 
     return (
