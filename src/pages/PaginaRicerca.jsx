@@ -100,7 +100,7 @@ function PaginaRicerca() {
                         onChange={handleInputChange}
                         value={filter.id_property}
                     >
-                        <option key='0' value='0'>Tutte</option>
+                        <option defaultChecked value='0'>Tutte</option>
                         {property.map(curProp => (
                             <option key={curProp.id} value={curProp.id}>{curProp.type}</option>
                         ))}

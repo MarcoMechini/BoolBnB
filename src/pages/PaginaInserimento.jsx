@@ -77,6 +77,7 @@ function PaginaInserimento() {
                     onChange={handleInputChange}
                     value={formData.id_property}
                 >
+                    <option defaultChecked value='0'>Seleziona una tipologia</option>
                     {property.map(curProp => (
                         <option key={curProp.id} value={curProp.id}>{curProp.type}</option>
                     ))}
