@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AppLike from "../Components/AppLike";
+import * as yup from 'yup';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function PaginaDettaglio() {
@@ -11,10 +12,22 @@ function PaginaDettaglio() {
   const [giorni, setGiorni] = useState('');
   const [casaSelezionata, setCasaSelezionata] = useState();
   const [flag, setFlag] = useState(0);
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const validazioneRecensione = yup.object().shape({
+    username: yup.string().min(3, "Deve essere minimo di tre lettere").max(255, "È troppo lungo").required("Inserire un nome").matches(/[a-zA-Z]/, "Il nome deve contenere almeno una lettera"),
+    user_email: yup.string().required("Email obbligatoria").email("Email non valida"),
+    reviewContent: yup.string().min(20, "la recensione deve essere minimo di 20 lettere").max(500, "È troppo lungo").matches(/[a-zA-Z]/, "La recensione deve contenere almeno una lettera"),
+    lengthOfDay: yup.number().typeError("Devi inserire un numero").required("Inserire i giorni di permanenza").positive("Deve essere positivo").integer("Deve essere un numero intero").min(1, "Deve essere stato almeno un giorno nella struttura"),
+  });
 
+  // funzione di callback axios
+  // const createNewReview = () =>{
+  //  // faccio il put per mandare la recensione in be
+
+  // };
 
   // faccio la chiamata axios per prendere i dati in entrata basandomi sull'id dell use params
   const caricoCasa = () => {
@@ -28,7 +41,7 @@ function PaginaDettaglio() {
     caricoCasa();
   }, [id, flag])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Recensione inviata:', { name, email, reviewText, giorni });
 
@@ -40,24 +53,45 @@ function PaginaDettaglio() {
       lengthOfDay: giorni
     };
 
-    // faccio il put per mandare la recensione in be
-    axios.post(`${apiUrl}/boolbnb/${id}/review`, nuovaRecensione)
-      .then(resp => {
-        console.log(resp.data);
-        console.log(casaSelezionata, "log di casa selezionata");
+    try {
+      await validazioneRecensione.validate(nuovaRecensione, { abortEarly: false });
+      console.log("Dati validi:", nuovaRecensione);
+      setErrors({}); // Reset degli errori se la validazione passa
+      axios.post(`${apiUrl}/boolbnb/${id}/review`, nuovaRecensione)
+        .then(resp => {
+          console.log(resp.data);
+          console.log(casaSelezionata, "log di casa selezionata");
 
 
 
-        // Resetta i campi del form dopo l'invio
-        setName('');
-        setEmail('');
-        setReviewText('');
-        setGiorni('');
-        caricoCasa();
-      })
-      .catch(err => {
-        console.log(err);
-      });
+          // Resetta i campi del form dopo l'invio
+          setName('');
+          setEmail('');
+          setReviewText('');
+          setGiorni('');
+          caricoCasa();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } catch (err) {
+      const errorMessages = {};
+
+      if (err.inner) {
+        err.inner.forEach((error) => {
+          errorMessages[error.path] = error.message;
+          console.log(errorMessages);
+        });
+      } else {
+        // Se err.inner non esiste, gestiamo l'errore singolo
+        errorMessages[err.path] = err.message;
+      }
+
+
+      setErrors(errorMessages);
+    }
+
+
   };
 
 
@@ -89,8 +123,9 @@ function PaginaDettaglio() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-            />
+            />{errors.username && <p>{errors.username}</p>}
           </div>
+
 
           <div>
             <label htmlFor="email">Email:</label>
@@ -103,6 +138,7 @@ function PaginaDettaglio() {
               required
             />
           </div>
+          {errors.user_email && <p>{errors.user_email}</p>}
           <div>
             <label htmlFor="giorni">Giorni di soggiorno:</label>
             <input
@@ -114,6 +150,7 @@ function PaginaDettaglio() {
               required
             />
           </div>
+          {errors.lengthOfDay && <p>{errors.lengthOfDay}</p>}
 
           <div>
             <label htmlFor="reviewText">Recensione:</label>
@@ -125,6 +162,7 @@ function PaginaDettaglio() {
               required
             />
           </div>
+          {errors.reviewContent && <p>{errors.reviewContent}</p>}
 
           <button onClick={handleSubmit} type="submit">Invia Recensione</button>
         </form>
