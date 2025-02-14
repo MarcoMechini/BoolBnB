@@ -57,11 +57,13 @@ function HomePage() {
 
 
                 {/* risultato ricerca */}
-                <section className={`${styles.containerHome}`}>
+                <section>
+                     <div  className={`${styles.row}`}>
                     {filtroCittà.length > 0 ? (
                         filtroCittà.map((curCasa) => (
                             // qui dentro svilupperò la card delle case
-                            <div key={curCasa.id} className={`${styles.card}`}>
+                            <div key={curCasa.id} className={`${styles.col}`} >
+                            <div  className={`${styles.card}`}>
                                 <div>{curCasa.city}</div>
                                 <div>{curCasa.address}</div>
                                 <div>{curCasa.title}</div>
@@ -75,10 +77,10 @@ function HomePage() {
                                 <div>{curCasa.url_img}</div>
                                 <Link to={`/Ricerca/${curCasa.id}`}>INFO</Link>
                                 <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike>
-                            </div>
+                            </div></div>
                         ))
                     ) : (<p>nessuna casa trovata in questa città</p>)}
-
+                    </div>
                 </section>
             </section>
 

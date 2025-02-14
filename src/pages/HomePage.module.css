@@ -4,11 +4,15 @@
     margin: 2px;
     width: 200px;
 }
-.containerHome{
-    margin: 0 auto;
-    max-width: 1200px;
-     width: 80%;
-    text-align: center;
+
+.row{
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+.col {
+    width: calc(90% / 3);
+    box-sizing: border-box;
+    padding: 5px;
 }
