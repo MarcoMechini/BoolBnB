@@ -1,5 +1,69 @@
-.navbar{
+.buttonNavbar {
     border: 1px solid black;
     padding: 5px;
     margin: 2px;
+    text-decoration: none;
+}
+
+
+
+@media (max-width: 700px) {
+
+    /* Nascondi i bottoni di navigazione in modalità mobile */
+    .navbarMenu {
+        display: none;
+    }
+
+    /* Mostra il menu a tendina */
+    .dropdown {
+        display: block;
+        background-color: white;
+        padding: 10px;
+        position: relative;
+    }
+
+    .dropdownContent {
+        display: none;
+        position: absolute;
+        background-color: white;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        width: 100%;
+        left: 0;
+    }
+
+    .dropdown:hover .dropdownContent {
+        display: block;
+    }
+
+    .dropdownContent a {
+        padding: 8px 16px;
+        text-decoration: none;
+        display: block;
+    }
+}
+
+/* Stili per il menu a tendina */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownContent a:hover {
+    background-color: #f1f1f1;
+}
+
+@media (min-width: 701px) {
+    .dropdown {
+        display: none;
+    }
+
+    .navbarMenu {
+        display: flex;
+        /* I bottoni di navigazione sono mostrati orizzontalmente */
+    }
+}
+
+.dropdownContent a:hover {
+    background-color: #f1f1f1;
 }
