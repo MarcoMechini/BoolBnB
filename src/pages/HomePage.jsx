@@ -64,19 +64,21 @@ function HomePage() {
                             // qui dentro svilupperò la card delle case
                             <div key={curCasa.id} className={`${styles.col}`} >
                             <div  className={`${styles.card}`}>
+                            <img className={`${styles.colCard1}`}  src={`${apiUrl}/${curCasa.url_img}`} alt="" />
+                                <div className={`${styles.colCard2}`}>
+                                    <div className={`${styles.rowDescr}`}>
                                 <div>{curCasa.city}</div>
                                 <div>{curCasa.address}</div>
                                 <div>{curCasa.title}</div>
-                                <div>{curCasa.descr}</div>
                                 <div>Mq:{curCasa.square_meters}</div>
                                 <div>Stanze:{curCasa.rooms}</div>
                                 <div>Bagni:{curCasa.bathrooms}</div>
                                 <div>Camere da letto: {curCasa.bedrooms}</div>
                                 <div>{curCasa.squere_meters}</div>
-                                <div>Like{curCasa.likes}</div>
-                                <div>{curCasa.url_img}</div>
+                                </div>
+                                <div className={`${styles.rowLike}`}>
                                 <Link to={`/Ricerca/${curCasa.id}`}>INFO</Link>
-                                <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike>
+                                <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike></div></div>
                             </div></div>
                         ))
                     ) : (<p>nessuna casa trovata in questa città</p>)}
