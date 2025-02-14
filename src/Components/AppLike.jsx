@@ -1,4 +1,6 @@
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 function AppLike({ id, flag, setFlag }) {
 
@@ -18,7 +20,7 @@ function AppLike({ id, flag, setFlag }) {
 
     return (
         <>
-            <h3 onClick={addLike}>sono Like</h3>
+            <FontAwesomeIcon onClick={addLike} icon={faHeart} size="2x" color="red" />
         </>
     )
 }

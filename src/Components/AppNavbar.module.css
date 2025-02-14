@@ -1,9 +1,9 @@
 .buttonNavbar {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 5px;
     margin: 2px;
     text-decoration: none;
-    background-color: #c14e07;
+    color: #c14e07;
 }
 
 
@@ -18,7 +18,7 @@
     /* Mostra il menu a tendina */
     .dropdown {
         display: block;
-        background-color: white;
+        /* background-color: white; */
         padding: 10px;
         position: relative;
     }
@@ -26,8 +26,8 @@
     .dropdownContent {
         display: none;
         position: absolute;
-        background-color: white;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        /* background-color: white; */
+        /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); */
         z-index: 1;
         width: 100%;
         left: 0;

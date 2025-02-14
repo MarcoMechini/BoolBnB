@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styles from './AppNavbar.module.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+
 
 const navMenu = [
     {
@@ -40,8 +43,9 @@ function AppNavbar() {
 
 
             <div className={styles.dropdown}>
+
                 <button onClick={toggleDropdown} className={`${styles.buttonNavbar}`}>
-                    Menu
+                    <FontAwesomeIcon icon={faBars} size="2x" />  {/* Menu hamburger */}
                 </button>
                 {isDropdownOpen && (
                     <div className={styles.dropdownContent}>
