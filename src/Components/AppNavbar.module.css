@@ -3,11 +3,10 @@
     padding: 5px;
     margin: 2px;
     text-decoration: none;
-    color: #c14e07;
+    background-color: #c14e07;
+    color: black;
+    padding: 2px;
 }
-
-
-
 @media (max-width: 700px) {
 
     /* Nascondi i bottoni di navigazione in modalità mobile */
@@ -18,7 +17,6 @@
     /* Mostra il menu a tendina */
     .dropdown {
         display: block;
-        /* background-color: white; */
         padding: 10px;
         position: relative;
     }
@@ -26,10 +24,9 @@
     .dropdownContent {
         display: none;
         position: absolute;
-        /* background-color: white; */
-        /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         z-index: 1;
-        width: 100%;
+        width: auto;
         left: 0;
     }
 
