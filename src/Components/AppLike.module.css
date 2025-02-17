@@ -1,0 +1,10 @@
+.cuoricino{
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s;
+}
+
+/* Effetto clic, ridurre leggermente la dimensione */
+.cuoricino:active {
+    transform: scale(2.95); 
+    background-color: #004085;
+}

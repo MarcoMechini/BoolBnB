@@ -1,7 +1,7 @@
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-
+import styles from './AppLike.module.css';
 function AppLike({ id, flag, setFlag }) {
 
     const apiUrl = import.meta.env.VITE_API_URL
@@ -20,7 +20,7 @@ function AppLike({ id, flag, setFlag }) {
 
     return (
         <>
-            <FontAwesomeIcon onClick={addLike} icon={faHeart} size="2x" color="red" />
+            <FontAwesomeIcon className={`${styles.cuoricino}`} onClick={addLike} icon={faHeart} size="2x" color="red" />
         </>
     )
 }
