@@ -10,7 +10,7 @@ const apiUrl = import.meta.env.VITE_API_URL
 function PaginaRicerca() {
 
     const location = useLocation();
-    const initialFiletrs = {
+    const initialFilters = {
         city: location.state?.city || [],
         bedrooms: '',
         bathrooms: '',
@@ -20,7 +20,7 @@ function PaginaRicerca() {
 
     const [filtroCittà, setFiltroCittà] = useState(location.state?.filtroCittà || [])
     const navigate = useNavigate()
-    const [filter, setFilter] = useState(initialFiletrs)
+    const [filter, setFilter] = useState(initialFilters)
     const [property, setProperty] = useState([])
     const [flag, setFlag] = useState(0);
 
@@ -33,7 +33,6 @@ function PaginaRicerca() {
             setProperty(resp.data.data)
         })
     }, [flag])
-
 
     //stanze posti letto e tipo immobile
     const ricercaMulti = () => {
@@ -67,11 +66,12 @@ function PaginaRicerca() {
         }
 
         //chiamata in get con l'url creato precedenemtente
-        axios.get(url).then(resp => (
+        axios.get(url).then(resp => {
+
             // salviamo i dati che ci tornano dalla chiamata api nella variabile filtrocittà
             setFiltroCittà(resp.data.data)
-        ))
-
+            navigate(`/Ricerca?${filtersArr.join('&')}`);
+        })
     }
 
     return (

@@ -58,30 +58,30 @@ function HomePage() {
 
                 {/* risultato ricerca */}
                 <section>
-                     <div  className={`${styles.row}`}>
-                    {filtroCittà.length > 0 ? (
-                        filtroCittà.map((curCasa) => (
-                            // qui dentro svilupperò la card delle case
-                            <div key={curCasa.id} className={`${styles.col}`} >
-                            <div  className={`${styles.card}`}>
-                            <img className={`${styles.colCard1}`}  src={`${apiUrl}/${curCasa.url_img}`} alt="" />
-                                <div className={`${styles.colCard2}`}>
-                                    <div className={`${styles.rowDescr}`}>
-                                <div>{curCasa.city}</div>
-                                <div>{curCasa.address}</div>
-                                <div>{curCasa.title}</div>
-                                <div>Mq:{curCasa.square_meters}</div>
-                                <div>Stanze:{curCasa.rooms}</div>
-                                <div>Bagni:{curCasa.bathrooms}</div>
-                                <div>Camere da letto: {curCasa.bedrooms}</div>
-                                <div>{curCasa.squere_meters}</div>
-                                </div>
-                                <div className={`${styles.rowLike}`}>
-                                <Link to={`/Ricerca/${curCasa.id}`}>INFO</Link>
-                                <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike></div></div>
-                            </div></div>
-                        ))
-                    ) : (<p>nessuna casa trovata in questa città</p>)}
+                    <div className={`${styles.row}`}>
+                        {filtroCittà.length > 0 ? (
+                            filtroCittà.map((curCasa) => (
+                                // qui dentro svilupperò la card delle case
+                                <div key={curCasa.id} className={`${styles.col}`} >
+                                    <div className={`${styles.card}`}>
+                                        <img className={`${styles.colCard1}`} src={`${apiUrl}/${curCasa.url_img}`} alt="" />
+                                        <div className={`${styles.colCard2}`}>
+                                            <div className={`${styles.rowDescr}`}>
+                                                <div>{curCasa.city}</div>
+                                                <div>{curCasa.address}</div>
+                                                <div>{curCasa.title}</div>
+                                                <div>Mq:{curCasa.square_meters}</div>
+                                                <div>Stanze:{curCasa.rooms}</div>
+                                                <div>Bagni:{curCasa.bathrooms}</div>
+                                                <div>Camere da letto: {curCasa.bedrooms}</div>
+                                                <div>{curCasa.squere_meters}</div>
+                                            </div>
+                                            <div className={`${styles.rowLike}`}>
+                                                <Link to={`/Ricerca/${curCasa.slug}`}>INFO</Link>
+                                                <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike></div></div>
+                                    </div></div>
+                            ))
+                        ) : (<p>nessuna casa trovata in questa città</p>)}
                     </div>
                 </section>
             </section>
