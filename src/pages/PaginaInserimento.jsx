@@ -125,7 +125,7 @@ function PaginaInserimento() {
                 </div>
                 <div>
                     <label htmlFor="url_img">Immagine</label>
-                    <input type="text" onChange={handleInputChange} value={formData.url_img} name="url_img" id="url_img" placeholder="immagine" onKeyDown={handleKeyUp} />
+                    <input type="file" onChange={handleInputChange} value={formData.url_img} name="url_img" id="url_img" placeholder="immagine" onKeyDown={handleKeyUp} />
                 </div>
                 <div>
                     <label htmlFor="bedrooms">Camere</label>

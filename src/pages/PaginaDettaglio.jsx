@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import AppLike from "../Components/AppLike";
 import * as yup from 'yup';
 const apiUrl = import.meta.env.VITE_API_URL;
+import style from './PaginaDettaglio.module.css';
 
 function PaginaDettaglio() {
   const [name, setName] = useState('');
@@ -15,6 +16,9 @@ function PaginaDettaglio() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const { slug } = useParams();
+  console.log(slug, "sono slug");
+
+
 
   const validazioneRecensione = yup.object().shape({
     username: yup.string().min(3, "Deve essere minimo di tre lettere").max(255, "È troppo lungo").required("Inserire un nome").matches(/[a-zA-Z]/, "Il nome deve contenere almeno una lettera"),
@@ -31,7 +35,7 @@ function PaginaDettaglio() {
 
   // faccio la chiamata axios per prendere i dati in entrata basandomi sull'id dell use params
   const caricoCasa = () => {
-    axios.get(`${apiUrl}/boolbnb/${slug}`, { params: { slug } }).then((resp) => {
+    axios.get(`${apiUrl}/boolbnb/${slug}`).then((resp) => {
       setCasaSelezionata(resp.data.data);
       console.log(resp.data.data, "sono pagina dettaglio");
     })
@@ -98,35 +102,46 @@ function PaginaDettaglio() {
 
   return (
     <>
-    <button onClick={() => navigate(-1)}>Indietro</button>
+      <button onClick={() => navigate(-1)}>Indietro</button>
       <section className="container">
-        
-        <h3>sono pagina dettaglio {slug}</h3>
+        <div className={`${style.row}`}>
+          {/* Controlla se la casa è stata caricata */}
+          {casaSelezionata ? (
 
-        {/* Controlla se la casa è stata caricata */}
-        {casaSelezionata ? (
-          <div key={casaSelezionata.id}>
-            <h4>{casaSelezionata.title}</h4>
-            <div>{casaSelezionata.address}</div>
-            <div>{casaSelezionata.city}</div>
-          </div>
-        ) : (
-          <p>Caricamento della casa in corso...</p>
-        )}
- 
-       {/* review section */}
+            <div className={`${style.col}`}>
+              <div className={`${style.card}`} key={casaSelezionata.id}>
+                <div className={`${style.colCard1}`}>immagine</div>
+                <div className={`${style.colCard2}`}>
+                  <h4>{casaSelezionata.title}</h4>
+                  <div>{casaSelezionata.address}</div>
+                  <div>{casaSelezionata.city}</div>
+                  <div>Mq:{casaSelezionata.square_meters}</div>
+                  <div>Stanze da Letto: {casaSelezionata.rooms}</div>
+                  <div>letti: {casaSelezionata.bedrooms}</div>
+                  <div>Bagni: {casaSelezionata.bathrooms}</div>
+                  <div>{casaSelezionata.squere_meters}</div>
+                  <div>Like: {casaSelezionata.likes}</div>
+                  <AppLike flag={flag} setFlag={setFlag} id={casaSelezionata.id}></AppLike>
+                </div>
 
-       <section>
-        {casaSelezionata && casaSelezionata.reviews.map((curRecensione, index) => (
-          <div key={index}>
-            <div >{curRecensione.username}</div>
-            <div>Notti trascorse:{curRecensione.length_of_stay}</div>
-            <div><strong>Recensione</strong></div>
-            <div>{curRecensione.review_content}</div>
-          </div>
-        ))}
-        <AppLike flag={flag} setFlag={setFlag} id={slug}></AppLike>
-      </section>
+              </div></div>
+          ) : (
+            <p>Caricamento della casa in corso...</p>
+          )}
+
+          {/* review section */}
+
+          <section className={`${style.col}`}>
+            {casaSelezionata && casaSelezionata.reviews.map((curRecensione, index) => (
+              <div className={`${style.cardReview}`} key={index}>
+                <div >{curRecensione.username}</div>
+                <div>Notti trascorse:{curRecensione.length_of_stay}</div>
+                <div><strong>Recensione</strong></div>
+                <div>{curRecensione.review_content}</div>
+              </div>
+            ))}
+
+          </section></div>
 
 
         <form >

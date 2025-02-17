@@ -68,11 +68,6 @@ function HomePage() {
                                 <div>Città: <strong>{curCasa.city}</strong> </div>
                                 <div>{curCasa.address}</div>
                                 <div>{curCasa.title}</div>
-                                <div>Mq:{curCasa.square_meters}</div>
-                                <div>Stanze da Letto:{curCasa.rooms}</div>
-                                <div>letti: {curCasa.bedrooms}</div>
-                                <div>Bagni:{curCasa.bathrooms}</div>
-                                <div>{curCasa.squere_meters}</div>
                                 </div>
                                 <div className={`${styles.rowLike}`}>
                                 <Link className={`${styles.infoButton}`} to={`/Ricerca/${curCasa.slug}`}><div className={`${styles.info}`}>INFO</div></Link>
