@@ -110,7 +110,7 @@ function PaginaDettaglio() {
 
             <div className={`${style.col}`}>
               <div className={`${style.card}`} key={casaSelezionata.id}>
-                <div className={`${style.colCard1}`}>immagine</div>
+                <img className={`${style.colCard1}`} src={`${apiUrl}/${casaSelezionata.url_img}`} alt="" />
                 <div className={`${style.colCard2}`}>
                   <h4>{casaSelezionata.title}</h4>
                   <div>{casaSelezionata.address}</div>
@@ -165,7 +165,6 @@ function PaginaDettaglio() {
               onChange={(e) => setEmail(e.target.value)}
               required/>
           {errors.user_email && <p>{errors.user_email}</p>}
-          <div>
             <label htmlFor="giorni">Giorni:</label>
             <input
               type="number"
@@ -173,11 +172,9 @@ function PaginaDettaglio() {
               name="giorni"
               value={giorni}
               onChange={(e) => setGiorni(e.target.value)}
-              required
-            />
+              required/>
           </div>
           {errors.lengthOfDay && <p>{errors.lengthOfDay}</p>}
-</div>
           <div className={`${style.reviewRow2}`}>
             <label htmlFor="reviewText">Recensione:</label>
             <textarea
