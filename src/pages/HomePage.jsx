@@ -44,16 +44,14 @@ function HomePage() {
     return (
         <>
             <section className="container">
-                <h1>Home Page</h1>
-
                 {/* barra di ricerca */}
-                <input type="text"
+                <input className={`${styles.searchBar}`}
+                 type="text"
                     placeholder="Cerca per città"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)} />
                 {/* inserisco bottone ricerca */}
-
-                <button type="button" onClick={ricercaManuale}>Cerca</button>
+                <button className={`${styles.buttonSearch}`} type="button" onClick={ricercaManuale}>Cerca</button>
 
 
                 {/* risultato ricerca */}
@@ -64,20 +62,20 @@ function HomePage() {
                             // qui dentro svilupperò la card delle case
                             <div key={curCasa.id} className={`${styles.col}`} >
                             <div  className={`${styles.card}`}>
-                            <img className={`${styles.colCard1}`}  src={`${apiUrl}/${curCasa.url_img}`} alt="" />
+                            <img className={`${styles.colCard1}`}  src={`${apiUrl}${curCasa.url_img}`} alt="" />
                                 <div className={`${styles.colCard2}`}>
                                     <div className={`${styles.rowDescr}`}>
-                                <div>{curCasa.city}</div>
+                                <div>Città: <strong>{curCasa.city}</strong> </div>
                                 <div>{curCasa.address}</div>
                                 <div>{curCasa.title}</div>
                                 <div>Mq:{curCasa.square_meters}</div>
-                                <div>Stanze:{curCasa.rooms}</div>
+                                <div>Stanze da Letto:{curCasa.rooms}</div>
+                                <div>letti: {curCasa.bedrooms}</div>
                                 <div>Bagni:{curCasa.bathrooms}</div>
-                                <div>Camere da letto: {curCasa.bedrooms}</div>
                                 <div>{curCasa.squere_meters}</div>
                                 </div>
                                 <div className={`${styles.rowLike}`}>
-                                <Link to={`/Ricerca/${curCasa.id}`}>INFO</Link>
+                                <Link className={`${styles.infoButton}`} to={`/Ricerca/${curCasa.id}`}><div className={`${styles.info}`}>INFO</div></Link>
                                 <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike></div></div>
                             </div></div>
                         ))

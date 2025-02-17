@@ -5,7 +5,6 @@
 .colCard2{
     width: 35%;
     padding: 10px;
-
 }
 .rowLike{
     width: 100%;
@@ -16,6 +15,9 @@
 .rowDescr{
     width: 100%;
     height: 80%;
+    display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .card{
@@ -52,4 +54,46 @@ body{
         box-sizing: border-box;
         padding: 5px;
     }
+}
+
+/* scritta info  */
+
+.infoButton{
+    background-color:  #c14e07 ;
+    color: black;
+    border-radius: 10px;
+    height: 18px;
+    padding: 3px;
+    
+}
+.info{
+    animation: movimento 2s ease-in-out infinite;
+}
+
+@keyframes movimento {
+    0% {
+        transform: scale(1); 
+    }
+    50% {
+        transform: scale(0.9); 
+    }
+    100% {
+        transform: scale(1); 
+}
+}
+
+/* searchbar zone */
+.searchBar{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 3px;
+    border: none;
+}
+.buttonSearch{
+    border-radius: 10px;
+    background-color:  #c14e07 ;
+    color: black;
+    padding: 3px;
+    border: none;
 }
