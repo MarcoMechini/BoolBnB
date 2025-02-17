@@ -18,7 +18,7 @@ function App() {
               <Route index element={<HomePage />}></Route>
               <Route path='/Ricerca'>
                 <Route index element={<PaginaRicerca />}></Route>
-                <Route path=':id' element={<PaginaDettaglio />}></Route>
+                <Route path=':slug' element={<PaginaDettaglio />}></Route>
               </Route>
               <Route path='/Inserimento' element={<PaginaInserimento />}></Route>
             </Route>

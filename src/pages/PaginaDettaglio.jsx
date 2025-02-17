@@ -106,6 +106,8 @@ function PaginaDettaglio() {
         {casaSelezionata ? (
           <div key={casaSelezionata.id}>
             <h4>{casaSelezionata.title}</h4>
+            <div>{casaSelezionata.address}</div>
+            <div>{casaSelezionata.city}</div>
           </div>
         ) : (
           <p>Caricamento della casa in corso...</p>
