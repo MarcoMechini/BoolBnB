@@ -75,7 +75,7 @@ function HomePage() {
                                 <div>{curCasa.squere_meters}</div>
                                 </div>
                                 <div className={`${styles.rowLike}`}>
-                                <Link className={`${styles.infoButton}`} to={`/Ricerca/${curCasa.id}`}><div className={`${styles.info}`}>INFO</div></Link>
+                                <Link className={`${styles.infoButton}`} to={`/Ricerca/${curCasa.slug}`}><div className={`${styles.info}`}>INFO</div></Link>
                                 <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike></div></div>
                             </div></div>
                         ))

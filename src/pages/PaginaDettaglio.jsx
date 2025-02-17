@@ -14,7 +14,7 @@ function PaginaDettaglio() {
   const [flag, setFlag] = useState(0);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { slug } = useParams();
 
   const validazioneRecensione = yup.object().shape({
     username: yup.string().min(3, "Deve essere minimo di tre lettere").max(255, "È troppo lungo").required("Inserire un nome").matches(/[a-zA-Z]/, "Il nome deve contenere almeno una lettera"),
@@ -31,7 +31,7 @@ function PaginaDettaglio() {
 
   // faccio la chiamata axios per prendere i dati in entrata basandomi sull'id dell use params
   const caricoCasa = () => {
-    axios.get(`${apiUrl}/boolbnb/${id}`, { params: { id } }).then((resp) => {
+    axios.get(`${apiUrl}/boolbnb/${slug}`, { params: { slug } }).then((resp) => {
       setCasaSelezionata(resp.data.data);
       console.log(resp.data.data, "sono pagina dettaglio");
     })
@@ -39,7 +39,7 @@ function PaginaDettaglio() {
 
   useEffect(() => {
     caricoCasa();
-  }, [id, flag])
+  }, [slug, flag])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,12 +100,14 @@ function PaginaDettaglio() {
     <>
       <section className="container">
         <button onClick={() => navigate(-1)}>Indietro</button>
-        <h3>sono pagina dettaglio {id}</h3>
+        <h3>sono pagina dettaglio {slug}</h3>
 
         {/* Controlla se la casa è stata caricata */}
         {casaSelezionata ? (
           <div key={casaSelezionata.id}>
             <h4>{casaSelezionata.title}</h4>
+            <div>{casaSelezionata.address}</div>
+            <div>{casaSelezionata.city}</div>
           </div>
         ) : (
           <p>Caricamento della casa in corso...</p>
@@ -179,7 +181,7 @@ function PaginaDettaglio() {
             <div>{curRecensione.review_content}</div>
           </div>
         ))}
-        <AppLike flag={flag} setFlag={setFlag} id={id}></AppLike>
+        <AppLike flag={flag} setFlag={setFlag} id={slug}></AppLike>
       </section>
     </>
   )
