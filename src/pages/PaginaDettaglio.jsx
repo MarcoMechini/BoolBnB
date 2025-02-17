@@ -98,8 +98,9 @@ function PaginaDettaglio() {
 
   return (
     <>
+    <button onClick={() => navigate(-1)}>Indietro</button>
       <section className="container">
-        <button onClick={() => navigate(-1)}>Indietro</button>
+        
         <h3>sono pagina dettaglio {slug}</h3>
 
         {/* Controlla se la casa è stata caricata */}
@@ -112,7 +113,20 @@ function PaginaDettaglio() {
         ) : (
           <p>Caricamento della casa in corso...</p>
         )}
+ 
+       {/* review section */}
 
+       <section>
+        {casaSelezionata && casaSelezionata.reviews.map((curRecensione, index) => (
+          <div key={index}>
+            <div >{curRecensione.username}</div>
+            <div>Notti trascorse:{curRecensione.length_of_stay}</div>
+            <div><strong>Recensione</strong></div>
+            <div>{curRecensione.review_content}</div>
+          </div>
+        ))}
+        <AppLike flag={flag} setFlag={setFlag} id={slug}></AppLike>
+      </section>
 
 
         <form >
@@ -170,19 +184,7 @@ function PaginaDettaglio() {
         </form>
 
       </section>
-      {/* review section */}
 
-      <section>
-        {casaSelezionata && casaSelezionata.reviews.map((curRecensione, index) => (
-          <div key={index}>
-            <div >{curRecensione.username}</div>
-            <div>Notti trascorse:{curRecensione.length_of_stay}</div>
-            <div><strong>Recensione</strong></div>
-            <div>{curRecensione.review_content}</div>
-          </div>
-        ))}
-        <AppLike flag={flag} setFlag={setFlag} id={slug}></AppLike>
-      </section>
     </>
   )
 
