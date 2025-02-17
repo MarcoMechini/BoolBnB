@@ -43,3 +43,24 @@
     background-color: #2754a3;
     color: white;
 }
+
+/* form zone */
+.formZone{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+.reviewArea{
+    width: 100%;
+    border-radius: 12px;
+    color: black;
+    padding: 5px;
+    align-items: center;
+    height: 50%;
+}
+.reviewRow1{
+    width: 40%;;
+}
+.reviewRow2{
+    width: 55%;
+}

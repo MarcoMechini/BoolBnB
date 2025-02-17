@@ -143,9 +143,10 @@ function PaginaDettaglio() {
 
           </section></div>
 
-
+{/* form layout */}
         <form >
-          <div>
+          <section className={`${style.formZone}`}>
+            <div className={`${style.reviewRow1}`}>
             <label htmlFor="name">Nome:</label>
             <input
               type="text"
@@ -155,10 +156,6 @@ function PaginaDettaglio() {
               onChange={(e) => setName(e.target.value)}
               required
             />{errors.username && <p>{errors.username}</p>}
-          </div>
-
-
-          <div>
             <label htmlFor="email">Email:</label>
             <input
               type="email"
@@ -166,12 +163,10 @@ function PaginaDettaglio() {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
+              required/>
           {errors.user_email && <p>{errors.user_email}</p>}
           <div>
-            <label htmlFor="giorni">Giorni di soggiorno:</label>
+            <label htmlFor="giorni">Giorni:</label>
             <input
               type="number"
               id="giorni"
@@ -182,10 +177,11 @@ function PaginaDettaglio() {
             />
           </div>
           {errors.lengthOfDay && <p>{errors.lengthOfDay}</p>}
-
-          <div>
+</div>
+          <div className={`${style.reviewRow2}`}>
             <label htmlFor="reviewText">Recensione:</label>
             <textarea
+            className={`${style.reviewArea}`}
               id="reviewText"
               value={reviewText}
               name="reviewText"
@@ -193,9 +189,9 @@ function PaginaDettaglio() {
               required
             />
           </div>
-          {errors.reviewContent && <p>{errors.reviewContent}</p>}
-
-          <button onClick={handleSubmit} type="submit">Invia Recensione</button>
+          {errors.reviewContent && <p>{errors.reviewContent}</p>} 
+          </section> 
+        <button onClick={handleSubmit} type="submit">Invia Recensione</button>
         </form>
 
       </section>
