@@ -11,10 +11,6 @@ const navMenu = [
         title: 'Home'
     },
     {
-        path: '/Ricerca',
-        title: 'Ricerca'
-    },
-    {
         path: '/Inserimento',
         title: 'Inserimento'
     }

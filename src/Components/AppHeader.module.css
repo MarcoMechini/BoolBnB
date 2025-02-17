@@ -4,5 +4,10 @@
     justify-content: space-around;
     align-items: center;
     padding: 10px;
-    background-color: #113c84;
+    background-color: #2754a3;
+}
+
+.logo{
+    height: 100px;
+    width: 100px;
 }
