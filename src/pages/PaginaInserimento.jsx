@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import * as yup from 'yup';
 const apiUrl = import.meta.env.VITE_API_URL;
+import style from './PaginaInserimento.module.css';
 
 const schemaValidazione = yup.object().shape({
     id_property: yup.number().typeError("Devi inserire un numero").required("id_property è obbligatorio").positive("Deve essere positivo").integer("Deve essere un numero intero"),

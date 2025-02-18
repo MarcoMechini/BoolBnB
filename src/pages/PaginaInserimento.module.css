@@ -1,0 +1,15 @@
+.formInserimento{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+    border: 3px solid #2754a3;
+    padding: 2%;
+    
+}
+
+.rowForm{
+    width: 100%;
+    margin: 2%;
+}

@@ -17,8 +17,17 @@ function PaginaDettaglio() {
   const navigate = useNavigate();
   const { slug } = useParams();
   console.log(slug, "sono slug");
+  const [FormVisibile, setFormVisibile] = useState(false);
 
+  // FUNZIONI PER APRIRE E CHIUDERE IL FORM
 
+  const clickVisibile = () => {
+    setFormVisibile(true);
+  };
+
+  const clickInvisibile = () => {
+    setFormVisibile(false);
+  };
 
   const validazioneRecensione = yup.object().shape({
     username: yup.string().min(3, "Deve essere minimo di tre lettere").max(255, "È troppo lungo").required("Inserire un nome").matches(/[a-zA-Z]/, "Il nome deve contenere almeno una lettera"),
@@ -26,12 +35,6 @@ function PaginaDettaglio() {
     reviewContent: yup.string().min(20, "la recensione deve essere minimo di 20 lettere").max(500, "È troppo lungo").matches(/[a-zA-Z]/, "La recensione deve contenere almeno una lettera"),
     lengthOfDay: yup.number().typeError("Devi inserire un numero").required("Inserire i giorni di permanenza").positive("Deve essere positivo").integer("Deve essere un numero intero").min(1, "Deve essere stato almeno un giorno nella struttura"),
   });
-
-  // funzione di callback axios
-  // const createNewReview = () =>{
-  //  // faccio il put per mandare la recensione in be
-
-  // };
 
   // faccio la chiamata axios per prendere i dati in entrata basandomi sull'id dell use params
   const caricoCasa = () => {
@@ -110,7 +113,7 @@ function PaginaDettaglio() {
 
             <div className={`${style.col}`}>
               <div className={`${style.card}`} key={casaSelezionata.id}>
-                <div className={`${style.colCard1}`}>immagine</div>
+                <img className={`${style.colCard1}`} src={`${apiUrl}/${casaSelezionata.url_img}`} alt="" />
                 <div className={`${style.colCard2}`}>
                   <h4>{casaSelezionata.title}</h4>
                   <div>{casaSelezionata.address}</div>
@@ -122,6 +125,9 @@ function PaginaDettaglio() {
                   <div>{casaSelezionata.squere_meters}</div>
                   <div>Like: {casaSelezionata.likes}</div>
                   <AppLike flag={flag} setFlag={setFlag} id={casaSelezionata.id}></AppLike>
+                  <button onClick={clickVisibile} className={`${style.contactButton}`}>
+                    Contattaci
+                  </button>
                 </div>
 
               </div></div>
@@ -143,62 +149,78 @@ function PaginaDettaglio() {
 
           </section></div>
 
-
+        {/* form layout */}
         <form >
-          <div>
-            <label htmlFor="name">Nome:</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />{errors.username && <p>{errors.username}</p>}
-          </div>
-
-
-          <div>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          {errors.user_email && <p>{errors.user_email}</p>}
-          <div>
-            <label htmlFor="giorni">Giorni di soggiorno:</label>
-            <input
-              type="number"
-              id="giorni"
-              name="giorni"
-              value={giorni}
-              onChange={(e) => setGiorni(e.target.value)}
-              required
-            />
-          </div>
-          {errors.lengthOfDay && <p>{errors.lengthOfDay}</p>}
-
-          <div>
-            <label htmlFor="reviewText">Recensione:</label>
-            <textarea
-              id="reviewText"
-              value={reviewText}
-              name="reviewText"
-              onChange={(e) => setReviewText(e.target.value)}
-              required
-            />
-          </div>
-          {errors.reviewContent && <p>{errors.reviewContent}</p>}
-
+          <section className={`${style.formZone}`}>
+            <div className={`${style.reviewRow1}`}>
+              <label htmlFor="name">Nome:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />{errors.username && <p>{errors.username}</p>}
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required />
+              {errors.user_email && <p>{errors.user_email}</p>}
+              <label htmlFor="giorni">Giorni:</label>
+              <input
+                type="number"
+                id="giorni"
+                name="giorni"
+                value={giorni}
+                onChange={(e) => setGiorni(e.target.value)}
+                required />
+            </div>
+            {errors.lengthOfDay && <p>{errors.lengthOfDay}</p>}
+            <div className={`${style.reviewRow2}`}>
+              <label htmlFor="reviewText">Recensione:</label>
+              <textarea
+                className={`${style.reviewArea}`}
+                id="reviewText"
+                value={reviewText}
+                name="reviewText"
+                onChange={(e) => setReviewText(e.target.value)}
+                required
+              />
+            </div>
+            {errors.reviewContent && <p>{errors.reviewContent}</p>}
+          </section>
           <button onClick={handleSubmit} type="submit">Invia Recensione</button>
         </form>
-
       </section>
+      {/* form messaggio proprietario */}
+      {FormVisibile && (
+        <div className={`${style.formOverlay}`}>
+          <div className={`${style.formContainer}`}>
+            <button onClick={clickInvisibile} className={`${style.closeButton}`}>
+              X
+            </button>
+            <form>
+              <div>
+                <label htmlFor="name">Nome: </label>
+                <input type="text" id="name" name="name" required />
+                <label htmlFor="email">Email: </label>
+                <input type="email" id="email" name="email" className="input-field" required />
+              </div>
+              <div className={`${style.mexCol}`}>
+                <label htmlFor="message">Messaggio:</label>
+                <textarea className={`${style.formCol}`} id="message" name="message" required></textarea>
+              </div>
+
+              <button className={`${style.inviaButton}`} type="submit">Invia</button>
+            </form>
+          </div>
+        </div>
+      )}
 
     </>
   )
