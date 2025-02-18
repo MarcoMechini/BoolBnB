@@ -10,7 +10,11 @@ const schemaValidazione = yup.object().shape({
     city: yup.string().min(3, "Deve essere minimo di tre lettere").max(100, "È troppo lungo").matches(/^[A-Za-z]+$/, "La città deve contenere solo lettere").required("Inserire la città"),
     descr: yup.string().nullable().max(500, "È troppo lungo"),
     rooms: yup.number().typeError("Devi inserire un numero").required("Inserire numero stanze").positive("Deve essere positivo").integer("Deve essere un numero intero").min(1, "Deve avere almeno una stanza"),
-    bedrooms: yup.number().typeError("Devi inserire un numero").required("Inserire il numero camere").positive("Deve essere positivo").integer("Deve essere un numero intero").min(1, "Deve avere almeno una stanza"),
+    bedrooms: yup.number().typeError("Devi inserire un numero").required("Inserire il numero camere").positive("Deve essere positivo").integer("Deve essere un numero intero").min(1, "Deve avere almeno una stanza")
+    .test('bedrooms-greater-or-equal-rooms', 'Il numero dei letti deve essere maggiore o uguale al numero delle stanze', function(value) {
+        const { rooms } = this.parent;
+        return value >= rooms;
+    }),
     bathrooms: yup.number().typeError("Devi inserire un numero").required("Inserire numero bagni").positive("Deve essere positivo").integer("Deve essere un numero intero").min(1, "Deve avere almeno un bagno"),
     square_meters: yup.number().typeError("Devi inserire un numero").required("Inserire metri quadrati").positive("Deve essere positivo").integer("Deve essere un numero intero").min(10, "Deve essere almeno 10 metri quadri"),
     address: yup.string().required("Inserire la via").min(5, "Deve essere minimo di 5 caratteri").max(255, "È troppo lungo"),
