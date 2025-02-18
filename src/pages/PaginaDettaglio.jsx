@@ -106,7 +106,6 @@ function PaginaDettaglio() {
           console.log(casaSelezionata, "log di casa selezionata");
 
 
-
           // Resetta i campi del form dopo l'invio
           setName('');
           setEmail('');
@@ -189,37 +188,43 @@ function PaginaDettaglio() {
         <form >
           <section className={`${style.formZone}`}>
             <div className={`${style.reviewRow1}`}>
-              <label htmlFor="name">Nome:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                onKeyUp={handleReviewKeyUp}
-                required
-              />{errors.username && <p>{errors.username}</p>}
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onKeyUp={handleReviewKeyUp}
-                required />
-              {errors.user_email && <p>{errors.user_email}</p>}
-              <label htmlFor="giorni">Giorni:</label>
-              <input
-                type="number"
-                id="giorni"
-                name="giorni"
-                value={giorni}
-                onChange={(e) => setGiorni(e.target.value)}
-                onKeyUp={handleReviewKeyUp}
-                required />
+              <div className={`${style.rowForm}`}>
+                <label htmlFor="name">Nome:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  onKeyUp={handleReviewKeyUp}
+                  required
+                />{errors.username && <p className={`${style.error}`}>{errors.username}</p>}
+              </div>
+              <div className={`${style.rowForm}`}>
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyUp={handleReviewKeyUp}
+                  required />
+                {errors.user_email && <p className={`${style.error}`}>{errors.user_email}</p>}
+              </div>
+              <div className={`${style.rowForm}`}>
+                <label htmlFor="giorni">Giorni:</label>
+                <input
+                  type="number"
+                  id="giorni"
+                  name="giorni"
+                  value={giorni}
+                  onChange={(e) => setGiorni(e.target.value)}
+                  onKeyUp={handleReviewKeyUp}
+                  required />
+                {errors.lengthOfDay && <p className={`${style.error}`}>{errors.lengthOfDay}</p>}
+              </div>
             </div>
-            {errors.lengthOfDay && <p>{errors.lengthOfDay}</p>}
             <div className={`${style.reviewRow2}`}>
               <label htmlFor="reviewText">Recensione:</label>
               <textarea
@@ -231,8 +236,8 @@ function PaginaDettaglio() {
                 onChange={(e) => setReviewText(e.target.value)}
                 required
               />
+              {errors.reviewContent && <p className={`${style.error}`}>{errors.reviewContent}</p>}
             </div>
-            {errors.reviewContent && <p>{errors.reviewContent}</p>}
           </section>
           <button className={`${style.inviaButton}`} onClick={handleSubmit} type="submit">Invia Recensione</button>
         </form>
