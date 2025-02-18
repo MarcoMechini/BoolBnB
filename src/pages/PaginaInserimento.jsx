@@ -22,7 +22,7 @@ const initialFormData = {
     city: "",
     descr: "",
     rooms: "",
-    url_img: "",
+    url_img: null,
     bedrooms: "",
     bathrooms: "",
     square_meters: "",
@@ -41,14 +41,26 @@ function PaginaInserimento() {
     const [formData, setFormData] = useState(initialFormData);
     const [property, setProperty] = useState([]);
     const [errors, setErrors] = useState({});
+    const [file, setFile] = useState(null);
 
     const sendNewHouse = () => {
-        // setLoading(true);
-        axios.post(`${apiUrl}/boolbnb`, formData)
+        const formDataToSend = new FormData();
+        for (const key in formData) {
+            formDataToSend.append(key, formData[key]);
+        }
+        if (file) {
+            formDataToSend.append("url_img", file);
+        }
+
+        axios.post(`${apiUrl}/boolbnb`, formDataToSend, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
             .then(resp => {
                 setFormData(initialFormData);
+                setFile(null);
                 console.log(resp.data.status);
-                // setLoading(false);
             })
             .catch(err => {
                 console.log(err);
@@ -56,9 +68,14 @@ function PaginaInserimento() {
     };
 
     const handleInputChange = (e) => {
-        const newObject = { ...formData, [e.target.name]: e.target.value };
-        setFormData(newObject);
-        console.log(newObject);
+        const { name, value, files } = e.target;
+        if (files) {
+            setFile(files[0]);
+        } else {
+            const newObject = { ...formData, [name]: value };
+            setFormData(newObject);
+        }
+        console.log(formData);
     };
 
     const handleKeyUp = (e) => {
@@ -125,7 +142,7 @@ function PaginaInserimento() {
                 </div>
                 <div>
                     <label htmlFor="url_img">Immagine</label>
-                    <input type="file" onChange={handleInputChange} value={formData.url_img} name="url_img" id="url_img" placeholder="immagine" onKeyDown={handleKeyUp} />
+                    <input type="file" onChange={handleInputChange} name="url_img" id="url_img" placeholder="immagine" onKeyDown={handleKeyUp} />
                 </div>
                 <div>
                     <label htmlFor="bedrooms">Camere</label>
