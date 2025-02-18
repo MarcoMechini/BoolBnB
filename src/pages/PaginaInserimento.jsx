@@ -131,10 +131,11 @@ function PaginaInserimento() {
                             {property.map(curProp => (
                                 <option key={curProp.id} value={curProp.id}>{curProp.type}</option>
                             ))}
-                        </select></div>
-                    <div className={`${style.rowForm}`} >
-                        {errors.id_property && <p>{errors.id_property}</p>}
+                        </select>
+                        {errors.id_property && <p className={`${style.error}`}>{errors.id_property}</p>}
+                    </div>
 
+                    <div className={`${style.rowForm}`} >
                         <label htmlFor="title">Titolo: </label>
                         <input type="text" onChange={handleInputChange} value={formData.title} name="title" id="title" placeholder="titolo descrittivo" onKeyDown={handleKeyUp} />
                     </div><div className={`${style.rowForm}`}>
