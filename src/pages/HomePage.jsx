@@ -62,7 +62,7 @@ function HomePage() {
                             // qui dentro svilupperò la card delle case
                             <div key={curCasa.id} className={`${styles.col}`} >
                             <div  className={`${styles.card}`}>
-                            <img className={`${styles.colCard1}`}  src={`${apiUrl}/${curCasa.url_img}`} alt="" />
+                            <img className={`${styles.colCard1}`}  src={`${apiUrl}/images/${curCasa.url_img}`} alt="" />
                                 <div className={`${styles.colCard2}`}>
                                     <div className={`${styles.rowDescr}`}>
                                 <div>Città: <strong>{curCasa.city}</strong> </div>

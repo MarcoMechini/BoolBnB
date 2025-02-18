@@ -13,3 +13,8 @@
     width: 100%;
     margin: 2%;
 }
+.selectLayout{
+    background-color:  #c14e07 ;
+    color: white;
+    border-radius: 10px;
+}

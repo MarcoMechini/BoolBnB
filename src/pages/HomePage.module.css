@@ -54,7 +54,7 @@ body{
 
 .infoButton{
     background-color:  #c14e07 ;
-    color: black;
+    color: white;
     border-radius: 10px;
     height: 18px;
     padding: 1%;
@@ -88,7 +88,7 @@ body{
 .buttonSearch{
     border-radius: 10px;
     background-color:  #c14e07 ;
-    color: black;
+    color: white;
     padding: 3px;
     border: none;
 }

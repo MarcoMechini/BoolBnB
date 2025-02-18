@@ -113,7 +113,7 @@ function PaginaDettaglio() {
 
             <div className={`${style.col}`}>
               <div className={`${style.card}`} key={casaSelezionata.id}>
-                <img className={`${style.colCard1}`} src={`${apiUrl}/${casaSelezionata.url_img}`} alt="" />
+                <img className={`${style.colCard1}`} src={`${apiUrl}/images/${casaSelezionata.url_img}`} alt="" />
                 <div className={`${style.colCard2}`}>
                   <h4>{casaSelezionata.title}</h4>
                   <div>{casaSelezionata.address}</div>
@@ -194,7 +194,7 @@ function PaginaDettaglio() {
             </div>
             {errors.reviewContent && <p>{errors.reviewContent}</p>}
           </section>
-          <button onClick={handleSubmit} type="submit">Invia Recensione</button>
+          <button className={`${style.inviaButton}`} onClick={handleSubmit} type="submit">Invia Recensione</button>
         </form>
       </section>
       {/* form messaggio proprietario */}

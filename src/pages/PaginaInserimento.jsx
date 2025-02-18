@@ -98,6 +98,7 @@ function PaginaInserimento() {
                 <form className={`${style.formInserimento}`}>
                     <div className={`${style.rowForm}`}>
                         <select
+                        className={`${style.selectLayout}`}
                             name="id_property"
                             id="id_property"
                             onChange={handleInputChange}
