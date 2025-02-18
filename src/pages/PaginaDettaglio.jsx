@@ -19,6 +19,13 @@ function PaginaDettaglio() {
   console.log(slug, "sono slug");
   const [FormVisibile, setFormVisibile] = useState(false);
 
+  // Stati per il form "Contattaci"
+  const [contactName, setContactName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactMessage, setContactMessage] = useState('');
+  const [contactErrors, setContactErrors] = useState({});
+
+
   // FUNZIONI PER APRIRE E CHIUDERE IL FORM
 
   const clickVisibile = () => {
@@ -28,6 +35,46 @@ function PaginaDettaglio() {
   const clickInvisibile = () => {
     setFormVisibile(false);
   };
+
+    //Funzione per validare il form "Contattaci"
+    const handleContactSubmit = (e) => {
+      e.preventDefault();
+  
+      const errors = {};
+  
+      if (!contactName.trim()) {
+        errors.name = "Il nome è obbligatorio";
+      } else if (contactName.length < 3) {
+        errors.name = "Il nome deve avere almeno 3 caratteri";
+      }
+  
+      if (!contactEmail.trim()) {
+        errors.email = "L'email è obbligatoria";
+      } else if (!/\S+@\S+\.\S+/.test(contactEmail)) {
+        errors.email = "L'email non è valida";
+      }
+  
+      if (!contactMessage.trim()) {
+        errors.message = "Il messaggio è obbligatorio";
+      } else if (contactMessage.length < 10) {
+        errors.message = "Il messaggio deve avere almeno 10 caratteri";
+      }
+  
+      if (Object.keys(errors).length > 0) {
+        setContactErrors(errors);
+        return;
+      }
+  
+      // Reset degli errori e invio dei dati
+      setContactErrors({});
+      console.log("Dati inviati:", { contactName, contactEmail, contactMessage });
+      
+      // Reset dei campi dopo l'invio
+      setContactName('');
+      setContactEmail('');
+      setContactMessage('');
+    };
+  
 
   const validazioneRecensione = yup.object().shape({
     username: yup.string().min(3, "Deve essere minimo di tre lettere").max(255, "È troppo lungo").required("Inserire un nome").matches(/[a-zA-Z]/, "Il nome deve contenere almeno una lettera"),
@@ -204,19 +251,40 @@ function PaginaDettaglio() {
             <button onClick={clickInvisibile} className={`${style.closeButton}`}>
               X
             </button>
-            <form>
+            <form onSubmit={handleContactSubmit}>
               <div>
-                <label htmlFor="name">Nome: </label>
-                <input type="text" id="name" name="name" required />
-                <label htmlFor="email">Email: </label>
-                <input type="email" id="email" name="email" className="input-field" required />
-              </div>
-              <div className={`${style.mexCol}`}>
-                <label htmlFor="message">Messaggio:</label>
-                <textarea className={`${style.formCol}`} id="message" name="message" required></textarea>
-              </div>
-
-              <button className={`${style.inviaButton}`} type="submit">Invia</button>
+                  <label htmlFor="contactName">Nome: </label>
+                  <input
+                    type="text"
+                    id="contactName"
+                    name="contactName"
+                    value={contactName}
+                    onChange={(e) => setContactName(e.target.value)}
+                  />
+                  {contactErrors.name && <p className={style.error}>{contactErrors.name}</p>}
+                  
+                  <label htmlFor="contactEmail">Email: </label>
+                  <input
+                    type="email"
+                    id="contactEmail"
+                    name="contactEmail"
+                    value={contactEmail}
+                    onChange={(e) => setContactEmail(e.target.value)}
+                  />
+                  {contactErrors.email && <p className={style.error}>{contactErrors.email}</p>}
+                 </div>
+                 <div className={`${style.mexCol}`}>
+                  <label htmlFor="message">Messaggio:</label>
+                  <textarea
+                    className={`${style.formCol}`}
+                    id="message"
+                    name="message"
+                    value={contactMessage}
+                    onChange={(e) => setContactMessage(e.target.value)}
+                  />
+                  {contactErrors.message && <p className={style.error}>{contactErrors.message}</p>}
+                </div>
+                <button className={`${style.inviaButton}`} type="submit">Invia</button>
             </form>
           </div>
         </div>
