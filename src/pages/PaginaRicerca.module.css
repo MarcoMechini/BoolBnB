@@ -5,7 +5,7 @@
 .card{
     background-color:#2754a3;
     color: white;
-    margin: 2px;
+    margin: 10px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -30,3 +30,92 @@
   flex-direction: column;
   gap: 5px;
 }
+.rowLike{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 20%;
+}
+.infoButton{
+    background-color:  #c14e07 ;
+    color: white;
+    border-radius: 10px;
+    height: 18px;
+    padding: 1%;
+    
+    
+}
+/* Form layout */
+
+.rowForm{
+    display: flex;
+    justify-content: center;
+    margin: 1%;
+    gap: 5px;
+}
+.titleForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.genericButton{
+    background-color:  #c14e07 ;
+    color: white;
+    border-radius: 10px;
+    padding: 4px;
+    text-align: center;
+    border: none;
+}
+.infoButton{ 
+    color: white;
+    
+}
+.info{
+    animation: movimento 2s ease-in-out infinite;
+}
+
+@keyframes movimento {
+    0% {
+        transform: scale(1); 
+    }
+    50% {
+        transform: scale(0.9); 
+    }
+    100% {
+        transform: scale(1); 
+}
+}
+
+
+/* MEDIA QUERY */
+@media (max-width: 900px) {
+
+    .rowForm{
+        margin: 1%;
+        gap: 5px;
+    }
+
+
+}
+
+@media (max-width: 700px) {
+
+    .rowForm{
+        flex-direction: column;
+        margin: 5%;
+        gap: 5px;
+
+    }
+    .genericButton{
+        background-color:  #c14e07 ;
+        color: white;
+        border-radius: 10px;
+        padding: 2px;
+        text-align: center;
+        border: none;
+    }
+
+}
+
+

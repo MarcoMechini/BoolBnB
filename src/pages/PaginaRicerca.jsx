@@ -77,22 +77,24 @@ function PaginaRicerca() {
     return (
         <>
             <section className="container">
-                <button onClick={() => navigate(-1)}>Indietro</button>
+                <button className={`${styles.genericButton}`} onClick={() => navigate(-1)}>Indietro</button>
 
                 <div>
                     {/* inizio filtri ricerca avanzata */}
+                    <section className={`${styles.rowForm}`}>
                     <div>
-                        <label htmlFor="city">Città:</label>
+                        <label className={`${styles.titleForm}`} htmlFor="city">Città:</label>
                         <input type="text" onChange={handleInputChange} value={filter.city} name="city" id="city" />
                     </div>
                     <div>
-                        <label htmlFor="bathrooms">Bagni</label>
+                        <label className={`${styles.titleForm}`} htmlFor="bathrooms">Bagni:</label>
                         <input type="number" onChange={handleInputChange} value={filter.bathrooms} name="bathrooms" id="bathrooms" placeholder="0" />
                     </div>
                     <div>
-                        <label htmlFor="bedrooms">Camere</label>
+                        <label className={`${styles.titleForm}`} htmlFor="bedrooms">Camere:</label>
                         <input type="number" onChange={handleInputChange} value={filter.bedrooms} name="bedrooms" id="bedrooms" placeholder="0" />
                     </div>
+                    </section>
                     <select
                         name="id_property"
                         id="id_property"
@@ -104,7 +106,7 @@ function PaginaRicerca() {
                             <option key={curProp.id} value={curProp.id}>{curProp.type}</option>
                         ))}
                     </select>
-                    <button onClick={ricercaMulti}>Invia</button>
+                    <button  className={`${styles.genericButton}`} onClick={ricercaMulti}>Invia</button>
                     {/* fine filtri ricerca avanzata */}
                     <div>
 
@@ -112,7 +114,7 @@ function PaginaRicerca() {
                     <h1 className={`${styles.title}`}>Risultati della ricerca</h1>
                     {filtroCittà.length > 0 ? (
                         filtroCittà.map((curCasa) => (
-                            <div key={curCasa.id} className={`${styles.col}`} >
+                            <div key={curCasa.id}  >
                             <div  className={`${styles.card}`}>
                             <img className={`${styles.colCard1}`}  src={`${apiUrl}/images/${curCasa.url_img}`} alt="" />
                                 <div className={`${styles.colCard2}`}>
