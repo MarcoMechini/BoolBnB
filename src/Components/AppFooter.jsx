@@ -1,7 +1,10 @@
+import style from './AppFooter.module.css';
+
+
 function AppFooter() {
     return (
         <>
-            <h3>sono Footer</h3>
+            <div className={`${style.footer}`}></div>
         </>
 
 

@@ -170,13 +170,13 @@ function PaginaInserimento() {
                     </div>
                     <div className={`${style.rowForm}`}>
                         <label htmlFor="url_img"></label>
-                        <input type="file" onChange={handleInputChange} name="url_img" id="url_img" placeholder="immagine" onKeyDown={handleKeyUp} />
+                        <input className={`${style.selectLayout}`} type="file" onChange={handleInputChange} name="url_img" id="url_img" placeholder="immagine" onKeyDown={handleKeyUp} />
                         </div>
                     <div className={`${style.rowForm}`}>
                         <label htmlFor="descr">Descrizione: </label>
                         <textarea onChange={handleInputChange} value={formData.descr} name="descr" id="descr" rows="4" placeholder="Descrizione casa" onKeyUp={handleKeyUp} />
                     </div>
-                    <button onClick={handleSubmit}>Invia</button>
+                    <button  onClick={handleSubmit}>Invia</button>
                 </form>
             </section>
         </>
