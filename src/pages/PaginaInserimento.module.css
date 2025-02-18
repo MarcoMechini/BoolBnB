@@ -1,4 +1,4 @@
-.formInserimento{
+.formInserimento {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,25 +6,26 @@
     margin-top: 5%;
     border: 3px solid #2754a3;
     padding: 2%;
-    
+
 }
 
-.rowForm{
+.rowForm {
     width: 50%;
     margin: 2%;
     display: flex;
     flex-direction: column;
 
 }
-.selectLayout{
-    background-color:  #c14e07 ;
+
+.selectLayout {
+    background-color: #c14e07;
     color: white;
     border-radius: 10px;
     padding: 3px;
     border: none;
 }
-.error{
+
+.error {
     color: red;
     border-radius: 10px;
-    
 }

@@ -32,7 +32,10 @@ function PaginaRicerca() {
     useEffect(() => {
         axios.get(`${apiUrl}/boolbnb/property`).then(resp => {
             setProperty(resp.data.data)
-        })
+        }).catch(err => {
+            console.log(err);
+            setProperty([])
+        });
     }, [flag])
 
     //stanze posti letto e tipo immobile
@@ -74,7 +77,8 @@ function PaginaRicerca() {
             navigate(`/Ricerca?${filtersArr.join('&')}`);
         }).catch(err => {
             console.log(err);
-            setFiltroCittà([])});
+            setFiltroCittà([])
+        });
     }
 
     return (
@@ -85,18 +89,18 @@ function PaginaRicerca() {
                 <div>
                     {/* inizio filtri ricerca avanzata */}
                     <section className={`${styles.rowForm}`}>
-                    <div>
-                        <label className={`${styles.titleForm}`} htmlFor="city">Città:</label>
-                        <input type="text" onChange={handleInputChange} value={filter.city} name="city" id="city" />
-                    </div>
-                    <div>
-                        <label className={`${styles.titleForm}`} htmlFor="bathrooms">Bagni:</label>
-                        <input type="number" onChange={handleInputChange} value={filter.bathrooms} name="bathrooms" id="bathrooms" placeholder="0" />
-                    </div>
-                    <div>
-                        <label className={`${styles.titleForm}`} htmlFor="bedrooms">Camere:</label>
-                        <input type="number" onChange={handleInputChange} value={filter.bedrooms} name="bedrooms" id="bedrooms" placeholder="0" />
-                    </div>
+                        <div>
+                            <label className={`${styles.titleForm}`} htmlFor="city">Città:</label>
+                            <input type="text" onChange={handleInputChange} value={filter.city} name="city" id="city" />
+                        </div>
+                        <div>
+                            <label className={`${styles.titleForm}`} htmlFor="bathrooms">Bagni:</label>
+                            <input type="number" onChange={handleInputChange} value={filter.bathrooms} name="bathrooms" id="bathrooms" placeholder="0" />
+                        </div>
+                        <div>
+                            <label className={`${styles.titleForm}`} htmlFor="bedrooms">Camere:</label>
+                            <input type="number" onChange={handleInputChange} value={filter.bedrooms} name="bedrooms" id="bedrooms" placeholder="0" />
+                        </div>
                     </section>
                     <select
                         name="id_property"
@@ -109,7 +113,7 @@ function PaginaRicerca() {
                             <option key={curProp.id} value={curProp.id}>{curProp.type}</option>
                         ))}
                     </select>
-                    <button  className={`${styles.genericButton}`} onClick={ricercaMulti}>Invia</button>
+                    <button className={`${styles.genericButton}`} onClick={ricercaMulti}>Invia</button>
                     {/* fine filtri ricerca avanzata */}
                     <div>
 
@@ -118,18 +122,18 @@ function PaginaRicerca() {
                     {filtroCittà.length > 0 ? (
                         filtroCittà.map((curCasa) => (
                             <div key={curCasa.id}  >
-                            <div  className={`${styles.card}`}>
-                            <img className={`${styles.colCard1}`}  src={`${apiUrl}/images/${curCasa.url_img}`} alt="" />
-                                <div className={`${styles.colCard2}`}>
-                                    <div className={`${styles.rowDescr}`}>
-                                <div>Città: <strong>{curCasa.city}</strong> </div>
-                                <div>{curCasa.address}</div>
-                                <div>{curCasa.title}</div>
-                                </div>
-                                <div className={`${styles.rowLike}`}>
-                                <Link className={`${styles.infoButton}`} to={`/Ricerca/${curCasa.slug}`}><div className={`${styles.info}`}>INFO</div></Link>
-                                <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike></div></div>
-                            </div></div>
+                                <div className={`${styles.card}`}>
+                                    <img className={`${styles.colCard1}`} src={`${apiUrl}/images/${curCasa.url_img}`} alt="" />
+                                    <div className={`${styles.colCard2}`}>
+                                        <div className={`${styles.rowDescr}`}>
+                                            <div>Città: <strong>{curCasa.city}</strong> </div>
+                                            <div>{curCasa.address}</div>
+                                            <div>{curCasa.title}</div>
+                                        </div>
+                                        <div className={`${styles.rowLike}`}>
+                                            <Link className={`${styles.infoButton}`} to={`/Ricerca/${curCasa.slug}`}><div className={`${styles.info}`}>INFO</div></Link>
+                                            <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike></div></div>
+                                </div></div>
                         ))
                     ) : (
                         <p>Nessuna casa trovata! Usa la ricerca vanzata per trovare quello che cerchi</p>

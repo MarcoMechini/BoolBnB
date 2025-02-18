@@ -6,6 +6,12 @@ import * as yup from 'yup';
 const apiUrl = import.meta.env.VITE_API_URL;
 import style from './PaginaDettaglio.module.css';
 
+const initialContactData = {
+  name: "",
+  sender: "",
+  message: ""
+};
+
 function PaginaDettaglio() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -16,8 +22,9 @@ function PaginaDettaglio() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const { slug } = useParams();
-  console.log(slug, "sono slug");
+  // console.log(slug, "sono slug");
   const [FormVisibile, setFormVisibile] = useState(false);
+  const [formContact, setFormContact] = useState(initialContactData);
 
   // Stati per il form "Contattaci"
   const [contactName, setContactName] = useState('');
@@ -27,6 +34,35 @@ function PaginaDettaglio() {
 
 
   // FUNZIONI PER APRIRE E CHIUDERE IL FORM
+
+  const handleInputChange = (e) => {
+    setFormContact({ ...formContact, [e.target.name]: e.target.value });
+    console.log(formContact);
+  }
+
+  const handleKeyUp = (e) => {
+    if (e.key === 'Enter') {
+      handleContactSubmit(e);
+    }
+  };
+
+  const handleReviewKeyUp = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit(e);
+    }
+  };
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+
+    axios.post(`${apiUrl}/boolbnb/${slug}/contact`, formContact).then(resp => {
+      console.log("Dati validi:", formContact);
+      setFormContact(initialContactData);
+    }).catch(err => {
+      console.log(err);
+
+    })
+  };
 
   const clickVisibile = () => {
     setFormVisibile(true);
@@ -117,7 +153,6 @@ function PaginaDettaglio() {
           console.log(casaSelezionata, "log di casa selezionata");
 
 
-
           // Resetta i campi del form dopo l'invio
           setName('');
           setEmail('');
@@ -200,34 +235,43 @@ function PaginaDettaglio() {
         <form >
           <section className={`${style.formZone}`}>
             <div className={`${style.reviewRow1}`}>
-              <label htmlFor="name">Nome:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />{errors.username && <p>{errors.username}</p>}
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required />
-              {errors.user_email && <p>{errors.user_email}</p>}
-              <label htmlFor="giorni">Giorni:</label>
-              <input
-                type="number"
-                id="giorni"
-                name="giorni"
-                value={giorni}
-                onChange={(e) => setGiorni(e.target.value)}
-                required />
+              <div className={`${style.rowForm}`}>
+                <label htmlFor="name">Nome:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  onKeyUp={handleReviewKeyUp}
+                  required
+                />{errors.username && <p className={`${style.error}`}>{errors.username}</p>}
+              </div>
+              <div className={`${style.rowForm}`}>
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyUp={handleReviewKeyUp}
+                  required />
+                {errors.user_email && <p className={`${style.error}`}>{errors.user_email}</p>}
+              </div>
+              <div className={`${style.rowForm}`}>
+                <label htmlFor="giorni">Giorni:</label>
+                <input
+                  type="number"
+                  id="giorni"
+                  name="giorni"
+                  value={giorni}
+                  onChange={(e) => setGiorni(e.target.value)}
+                  onKeyUp={handleReviewKeyUp}
+                  required />
+                {errors.lengthOfDay && <p className={`${style.error}`}>{errors.lengthOfDay}</p>}
+              </div>
             </div>
-            {errors.lengthOfDay && <p>{errors.lengthOfDay}</p>}
             <div className={`${style.reviewRow2}`}>
               <label htmlFor="reviewText">Recensione:</label>
               <textarea
@@ -235,11 +279,12 @@ function PaginaDettaglio() {
                 id="reviewText"
                 value={reviewText}
                 name="reviewText"
+                onKeyUp={handleReviewKeyUp}
                 onChange={(e) => setReviewText(e.target.value)}
                 required
               />
+              {errors.reviewContent && <p className={`${style.error}`}>{errors.reviewContent}</p>}
             </div>
-            {errors.reviewContent && <p>{errors.reviewContent}</p>}
           </section>
           <button className={`${style.inviaButton}`} onClick={handleSubmit} type="submit">Invia Recensione</button>
         </form>
@@ -253,6 +298,7 @@ function PaginaDettaglio() {
             </button>
             <form onSubmit={handleContactSubmit}>
               <div>
+
                   <label htmlFor="contactName">Nome: </label>
                   <input
                     type="text"
@@ -285,6 +331,19 @@ function PaginaDettaglio() {
                   {contactErrors.message && <p className={style.error}>{contactErrors.message}</p>}
                 </div>
                 <button className={`${style.inviaButton}`} type="submit">Invia</button>
+
+                <label htmlFor="name">Nome: </label>
+                <input onChange={handleInputChange} onKeyUp={handleKeyUp} value={formContact.name} type="text" id="name" name="name" required />
+                <label htmlFor="email">Email: </label>
+                <input onChange={handleInputChange} onKeyUp={handleKeyUp} value={formContact.sender} type="email" id="sender" name="sender" className="input-field" required />
+              </div>
+              <div className={`${style.mexCol}`}>
+                <label htmlFor="message">Messaggio:</label>
+                <textarea className={`${style.formCol}`} onChange={handleInputChange} value={formContact.message} onKeyUp={handleKeyUp} id="message" name="message" required></textarea>
+              </div>
+
+              <button className={`${style.inviaButton}`} onClick={handleContactSubmit} onKeyUp={handleKeyUp} type="submit">Invia</button>
+
             </form>
           </div>
         </div>
