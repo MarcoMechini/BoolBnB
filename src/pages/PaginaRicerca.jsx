@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import AppLike from "../Components/AppLike";
 import styles from './PaginaRicerca.module.css';
+import { set } from "react-hook-form";
 const apiUrl = import.meta.env.VITE_API_URL
 
 
@@ -71,7 +72,9 @@ function PaginaRicerca() {
             // salviamo i dati che ci tornano dalla chiamata api nella variabile filtrocittà
             setFiltroCittà(resp.data.data)
             navigate(`/Ricerca?${filtersArr.join('&')}`);
-        })
+        }).catch(err => {
+            console.log(err);
+            setFiltroCittà([])});
     }
 
     return (
@@ -129,7 +132,7 @@ function PaginaRicerca() {
                             </div></div>
                         ))
                     ) : (
-                        <p>Usa la ricerca vanzata per trovare quello che cerchi</p>
+                        <p>Nessuna casa trovata! Usa la ricerca vanzata per trovare quello che cerchi</p>
                     )}
                 </div>
             </section>
