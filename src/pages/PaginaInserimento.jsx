@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import * as yup from 'yup';
 const apiUrl = import.meta.env.VITE_API_URL;
+import style from './PaginaInserimento.module.css';
 
 const schemaValidazione = yup.object().shape({
     id_property: yup.number().typeError("Devi inserire un numero").required("id_property è obbligatorio").positive("Deve essere positivo").integer("Deve essere un numero intero"),
@@ -93,70 +94,73 @@ function PaginaInserimento() {
 
     return (
         <>
-            <h3>sono Pagina Inserimeto</h3>
-            <form>
-                <select
-                    name="id_property"
-                    id="id_property"
-                    onChange={handleInputChange}
-                    value={formData.id_property}
-                    onKeyDown={handleKeyUp}
-                >
-                    <option defaultChecked value='0'>Seleziona una tipologia</option>
-                    {property.map(curProp => (
-                        <option key={curProp.id} value={curProp.id}>{curProp.type}</option>
-                    ))}
-                </select>
-                {errors.id_property && <p>{errors.id_property}</p>}
-                <div>
-                    <label htmlFor="title">Titolo</label>
-                    <input type="text" onChange={handleInputChange} value={formData.title} name="title" id="title" placeholder="Casa del rinascimento" onKeyDown={handleKeyUp} />
-                    {errors.title && <p>{errors.title}</p>}
-                </div>
-                <div>
-                    <label htmlFor="city">Città</label>
-                    <input type="text" onChange={handleInputChange} value={formData.city} name="city" id="city" placeholder="Città" onKeyDown={handleKeyUp} />
-                    {errors.city && <p>{errors.city}</p>}
-                </div>
-                <div>
-                    <label htmlFor="rooms">Stanze</label>
-                    <input type="number" onChange={handleInputChange} value={formData.rooms} name="rooms" id="rooms" placeholder="0" onKeyDown={handleKeyUp} />
-                    {errors.rooms && <p>{errors.rooms}</p>}
-                </div>
-                <div>
-                    <label htmlFor="url_img">Immagine</label>
-                    <input type="file" onChange={handleInputChange} value={formData.url_img} name="url_img" id="url_img" placeholder="immagine" onKeyDown={handleKeyUp} />
-                </div>
-                <div>
-                    <label htmlFor="bedrooms">Camere</label>
-                    <input type="number" onChange={handleInputChange} value={formData.bedrooms} name="bedrooms" id="bedrooms" placeholder="0" onKeyDown={handleKeyUp} />
-                    {errors.bedrooms && <p>{errors.bedrooms}</p>}
-                </div>
-                <div>
-                    <label htmlFor="bathrooms">Bagni</label>
-                    <input type="number" onChange={handleInputChange} value={formData.bathrooms} name="bathrooms" id="bathrooms" placeholder="0" onKeyDown={handleKeyUp} />
-                    {errors.bathrooms && <p>{errors.bathrooms}</p>}
-                </div>
-                <div>
-                    <label htmlFor="square_meters">Metri quadri</label>
-                    <input type="number" onChange={handleInputChange} value={formData.square_meters} name="square_meters" id="square_meters" placeholder="60" onKeyDown={handleKeyUp} />
-                    {errors.square_meters && <p>{errors.square_meters}</p>}
-                </div>
-                <div>
-                    <label htmlFor="address">Indirizzo</label>
-                    <input type="text" onChange={handleInputChange} value={formData.address} name="address" id="address" placeholder="Via di qui" onKeyDown={handleKeyUp} />
-                    {errors.address && <p>{errors.address}</p>}
-                </div>
-                <div>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" onChange={handleInputChange} value={formData.email} name="email" id="email" placeholder="example@gmail.com" onKeyDown={handleKeyUp} />
-                    {errors.email && <p>{errors.email}</p>}
-                </div>
-                <div>
-                    <textarea onChange={handleInputChange} value={formData.descr} name="descr" id="descr" rows="4" placeholder="Appartamento luminoso" onKeyUp={handleKeyUp} />
-                </div>
-                <button onClick={handleSubmit}>Invia</button>
-            </form>
+            <section className="container">
+                <form className={`${style.formInserimento}`}>
+                    <div className={`${style.rowForm}`}>
+                        <select
+                            name="id_property"
+                            id="id_property"
+                            onChange={handleInputChange}
+                            value={formData.id_property}
+                            onKeyDown={handleKeyUp}
+
+                        >
+                            <option defaultChecked value='0'>Seleziona una tipologia</option>
+                            {property.map(curProp => (
+                                <option key={curProp.id} value={curProp.id}>{curProp.type}</option>
+                            ))}
+                        </select></div>
+                    <div className={`${style.rowForm}`} >
+                        {errors.id_property && <p>{errors.id_property}</p>}
+
+                        <label htmlFor="title">Titolo: </label>
+                        <input type="text" onChange={handleInputChange} value={formData.title} name="title" id="title" placeholder="titolo descrittivo" onKeyDown={handleKeyUp} />
+                        </div><div className={`${style.rowForm}`}>
+                        {errors.title && <p>{errors.title}</p>}
+                        <label htmlFor="address">Indirizzo: </label>
+                        <input type="text" onChange={handleInputChange} value={formData.address} name="address" id="address" placeholder="Via" onKeyDown={handleKeyUp} />
+                    </div>
+                    <div className={`${style.rowForm}`}>
+                        <label htmlFor="city">Città: </label>
+                        <input type="text" onChange={handleInputChange} value={formData.city} name="city" id="city" placeholder="Città" onKeyDown={handleKeyUp} />
+                        </div><div className={`${style.rowForm}`}>
+                        {errors.city && <p>{errors.city}</p>}
+                        <label htmlFor="rooms">Stanze: </label>
+                        <input type="number" onChange={handleInputChange} value={formData.rooms} name="rooms" id="rooms" placeholder="0" onKeyDown={handleKeyUp} />
+                        {errors.rooms && <p>{errors.rooms}</p>}
+                    </div>
+                    <div className={`${style.rowForm}`}>
+                        <label htmlFor="bedrooms">Letti: </label>
+                        <input type="number" onChange={handleInputChange} value={formData.bedrooms} name="bedrooms" id="bedrooms" placeholder="0" onKeyDown={handleKeyUp} />
+                        {errors.bedrooms && <p>{errors.bedrooms}</p>}
+                    </div>
+                    <div className={`${style.rowForm}`}>
+                        <label htmlFor="bathrooms">Bagni: </label>
+                        <input type="number" onChange={handleInputChange} value={formData.bathrooms} name="bathrooms" id="bathrooms" placeholder="0" onKeyDown={handleKeyUp} />
+                        {errors.bathrooms && <p>{errors.bathrooms}</p>}
+                        </div><div className={`${style.rowForm}`}>
+                        <label htmlFor="square_meters">MQ: </label>
+                        <input type="number" onChange={handleInputChange} value={formData.square_meters} name="square_meters" id="square_meters" placeholder="0" onKeyDown={handleKeyUp} />
+                        {errors.square_meters && <p>{errors.square_meters}</p>}
+                    </div>
+                    <div className={`${style.rowForm}`}>
+
+                        {errors.address && <p>{errors.address}</p>}
+                        <label htmlFor="email">Email: </label>
+                        <input type="email" onChange={handleInputChange} value={formData.email} name="email" id="email" placeholder="example@gmail.com" onKeyDown={handleKeyUp} />
+                        {errors.email && <p>{errors.email}</p>}
+                    </div>
+                    <div className={`${style.rowForm}`}>
+                        <label htmlFor="url_img"></label>
+                        <input type="file" onChange={handleInputChange} value={formData.url_img} name="url_img" id="url_img" placeholder="immagine" onKeyDown={handleKeyUp} />
+                        </div>
+                    <div className={`${style.rowForm}`}>
+                        <label htmlFor="descr">Descrizione: </label>
+                        <textarea onChange={handleInputChange} value={formData.descr} name="descr" id="descr" rows="4" placeholder="Descrizione casa" onKeyUp={handleKeyUp} />
+                    </div>
+                    <button onClick={handleSubmit}>Invia</button>
+                </form>
+            </section>
         </>
     );
 }
