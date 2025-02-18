@@ -64,7 +64,7 @@ function PaginaDettaglio() {
       await validazioneRecensione.validate(nuovaRecensione, { abortEarly: false });
       console.log("Dati validi:", nuovaRecensione);
       setErrors({}); // Reset degli errori se la validazione passa
-      axios.post(`${apiUrl}/boolbnb/${id}/review`, nuovaRecensione)
+      axios.post(`${apiUrl}/boolbnb/${slug}/review`, nuovaRecensione)
         .then(resp => {
           console.log(resp.data);
           console.log(casaSelezionata, "log di casa selezionata");

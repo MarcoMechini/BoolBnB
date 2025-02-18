@@ -26,7 +26,11 @@ function HomePage() {
         })
     };
 
-
+    const handleKeyUp = (e) => {
+        if (e.key === 'Enter') {
+            ricercaManuale();
+        }
+    };
 
     // filtro le città in base al termine di ricerca
     const ricercaManuale = () => {
@@ -46,35 +50,37 @@ function HomePage() {
             <section className="container">
                 {/* barra di ricerca */}
                 <input className={`${styles.searchBar}`}
-                 type="text"
+                    type="text"
                     placeholder="Cerca per città"
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)} />
+                    onChange={(e) => setSearch(e.target.value)}
+                    onKeyUp={handleKeyUp}
+                />
                 {/* inserisco bottone ricerca */}
                 <button className={`${styles.buttonSearch}`} type="button" onClick={ricercaManuale}>Cerca</button>
 
 
                 {/* risultato ricerca */}
                 <section>
-                     <div  className={`${styles.row}`}>
-                    {filtroCittà.length > 0 ? (
-                        filtroCittà.map((curCasa) => (
-                            // qui dentro svilupperò la card delle case
-                            <div key={curCasa.id} className={`${styles.col}`} >
-                            <div  className={`${styles.card}`}>
-                            <img className={`${styles.colCard1}`}  src={`${apiUrl}/images/${curCasa.url_img}`} alt="" />
-                                <div className={`${styles.colCard2}`}>
-                                    <div className={`${styles.rowDescr}`}>
-                                <div>Città: <strong>{curCasa.city}</strong> </div>
-                                <div>{curCasa.address}</div>
-                                <div>{curCasa.title}</div>
-                                </div>
-                                <div className={`${styles.rowLike}`}>
-                                <Link className={`${styles.infoButton}`} to={`/Ricerca/${curCasa.slug}`}><div className={`${styles.info}`}>INFO</div></Link>
-                                <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike></div></div>
-                            </div></div>
-                        ))
-                    ) : (<p>nessuna casa trovata in questa città</p>)}
+                    <div className={`${styles.row}`}>
+                        {filtroCittà.length > 0 ? (
+                            filtroCittà.map((curCasa) => (
+                                // qui dentro svilupperò la card delle case
+                                <div key={curCasa.id} className={`${styles.col}`} >
+                                    <div className={`${styles.card}`}>
+                                        <img className={`${styles.colCard1}`} src={`${apiUrl}/images/${curCasa.url_img}`} alt="" />
+                                        <div className={`${styles.colCard2}`}>
+                                            <div className={`${styles.rowDescr}`}>
+                                                <div>Città: <strong>{curCasa.city}</strong> </div>
+                                                <div>{curCasa.address}</div>
+                                                <div>{curCasa.title}</div>
+                                            </div>
+                                            <div className={`${styles.rowLike}`}>
+                                                <Link className={`${styles.infoButton}`} to={`/Ricerca/${curCasa.slug}`}><div className={`${styles.info}`}>INFO</div></Link>
+                                                <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike></div></div>
+                                    </div></div>
+                            ))
+                        ) : (<p>nessuna casa trovata in questa città</p>)}
                     </div>
                 </section>
             </section>
