@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import AppLike from "../Components/AppLike";
-
+import styles from './PaginaRicerca.module.css';
 const apiUrl = import.meta.env.VITE_API_URL
 
 
@@ -77,13 +77,12 @@ function PaginaRicerca() {
     return (
         <>
             <section className="container">
-                <h3>sono Pagina Ricerca</h3>
                 <button onClick={() => navigate(-1)}>Indietro</button>
 
                 <div>
                     {/* inizio filtri ricerca avanzata */}
                     <div>
-                        <label htmlFor="city"></label>
+                        <label htmlFor="city">Città:</label>
                         <input type="text" onChange={handleInputChange} value={filter.city} name="city" id="city" />
                     </div>
                     <div>
@@ -110,13 +109,22 @@ function PaginaRicerca() {
                     <div>
 
                     </div>
-                    <h1>Risultati della ricerca</h1>
+                    <h1 className={`${styles.title}`}>Risultati della ricerca</h1>
                     {filtroCittà.length > 0 ? (
                         filtroCittà.map((curCasa) => (
-                            <div key={curCasa.id}><Link to={`/Ricerca/${curCasa.id}`}>
-                                {curCasa.city} - {curCasa.title}</Link>
-                                <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike>
-                            </div>
+                            <div key={curCasa.id} className={`${styles.col}`} >
+                            <div  className={`${styles.card}`}>
+                            <img className={`${styles.colCard1}`}  src={`${apiUrl}/images/${curCasa.url_img}`} alt="" />
+                                <div className={`${styles.colCard2}`}>
+                                    <div className={`${styles.rowDescr}`}>
+                                <div>Città: <strong>{curCasa.city}</strong> </div>
+                                <div>{curCasa.address}</div>
+                                <div>{curCasa.title}</div>
+                                </div>
+                                <div className={`${styles.rowLike}`}>
+                                <Link className={`${styles.infoButton}`} to={`/Ricerca/${curCasa.slug}`}><div className={`${styles.info}`}>INFO</div></Link>
+                                <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike></div></div>
+                            </div></div>
                         ))
                     ) : (
                         <p>Usa la ricerca vanzata per trovare quello che cerchi</p>

@@ -1,0 +1,32 @@
+.title{
+    color: #c14e07; ;
+}
+
+.card{
+    background-color:#2754a3;
+    color: white;
+    margin: 2px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    height: 250px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.colCard1{
+    width: 60%;
+    object-fit: cover;
+    background-color: #c14e07;
+}
+.colCard2{
+    width: 35%;
+    padding: 1%;
+    
+}
+.rowDescr{
+    width: 100%;
+    height: 80%;
+    display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

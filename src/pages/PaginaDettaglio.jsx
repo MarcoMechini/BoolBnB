@@ -105,7 +105,6 @@ function PaginaDettaglio() {
 
   return (
     <>
-      <button onClick={() => navigate(-1)}>Indietro</button>
       <section className="container">
         <div className={`${style.row}`}>
           {/* Controlla se la casa è stata caricata */}
@@ -124,6 +123,7 @@ function PaginaDettaglio() {
                   <div>Bagni: {casaSelezionata.bathrooms}</div>
                   <div>{casaSelezionata.squere_meters}</div>
                   <div>Like: {casaSelezionata.likes}</div>
+                  <div><strong>Descrizione: </strong> {casaSelezionata.descr}</div>
                   <AppLike flag={flag} setFlag={setFlag} id={casaSelezionata.id}></AppLike>
                   <button onClick={clickVisibile} className={`${style.contactButton}`}>
                     Contattaci
