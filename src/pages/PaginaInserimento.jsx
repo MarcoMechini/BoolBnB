@@ -5,18 +5,18 @@ const apiUrl = import.meta.env.VITE_API_URL;
 import style from './PaginaInserimento.module.css';
 
 const schemaValidazione = yup.object().shape({
-    id_property: yup.number().typeError("Devi inserire un numero").required("id_property è obbligatorio").positive("Deve essere positivo").integer("Deve essere un numero intero"),
-    title: yup.string().min(3, "Deve essere minimo di tre lettere").max(255, "È troppo lungo").matches(/[a-zA-Z]/, "Il titolo deve contenere almeno una lettera").required("Inserire il titolo della casa"),
-    city: yup.string().min(3, "Deve essere minimo di tre lettere").max(100, "È troppo lungo").matches(/^[A-Za-z]+$/, "La città deve contenere solo lettere").required("Inserire la città"),
+    id_property: yup.number().typeError("Devi scegliere una tipologia di appartamento").required("Devi scegliere una tipologia di appartamento").positive("Devi scegliere una tipologia di appartamento").integer("Devi scegliere una tipologia di appartamento"),
+    title: yup.string().min(3, "Il titolo descrittivo della casa deve essere almeno di 3 lettere").max(255, "È troppo lungo").matches(/[a-zA-Z]/, "Il titolo deve contenere almeno una lettera").required("Inserire il titolo della casa"),
+    city: yup.string().min(3, "La Città deve essere minimo di tre lettere").max(100, "È troppo lungo").matches(/^[A-Za-z]+$/, "La città deve contenere solo lettere").required("Inserire la città"),
     descr: yup.string().nullable().max(500, "È troppo lungo"),
-    rooms: yup.number().typeError("Devi inserire un numero").required("Inserire numero stanze").positive("Deve essere positivo").integer("Deve essere un numero intero").min(1, "Deve avere almeno una stanza"),
-    bedrooms: yup.number().typeError("Devi inserire un numero").required("Inserire il numero camere").positive("Deve essere positivo").integer("Deve essere un numero intero").min(1, "Deve avere almeno una stanza")
+    rooms: yup.number().typeError("Devi inserire almeno una stanza").required("Devi inserire almeno una stanza").positive("Devi inserire almeno una stanza").integer("Devi inserire almeno una stanza").min(1, "Deve avere almeno una stanza"),
+    bedrooms: yup.number().typeError("Devi inserire almeno un letto").required("Devi inserire almeno un letto").positive("Devi inserire almeno un letto").integer("Deve essere un numero intero").min(1, "Devi inserire almeno un letto")
         .test('bedrooms-greater-or-equal-rooms', 'Il numero dei letti deve essere maggiore o uguale al numero delle stanze', function (value) {
             const { rooms } = this.parent;
             return value >= rooms;
         }),
-    bathrooms: yup.number().typeError("Devi inserire un numero").required("Inserire numero bagni").positive("Deve essere positivo").integer("Deve essere un numero intero").min(1, "Deve avere almeno un bagno"),
-    square_meters: yup.number().typeError("Devi inserire un numero").required("Inserire metri quadrati").positive("Deve essere positivo").integer("Deve essere un numero intero").min(10, "Deve essere almeno 10 metri quadri"),
+    bathrooms: yup.number().typeError("Devi inserire almeno un bagno").required("Devi inserire almeno un bagno").positive("Devi inserire almeno un bagno").integer("Deve essere un numero intero").min(1, "Deve avere almeno un bagno"),
+    square_meters: yup.number().typeError("Devi inserire il numero di MQ").required("Inserire metri quadrati").positive("Devi inserire almeno 10 MQ").integer("Deve essere un numero intero").min(10, "Deve essere almeno 10 metri quadri"),
     address: yup.string().required("Inserire la via").min(5, "Deve essere minimo di 5 caratteri").max(255, "È troppo lungo"),
     email: yup.string().required("Email obbligatoria").email("Email non valida"),
 });
@@ -138,40 +138,40 @@ function PaginaInserimento() {
                     <div className={`${style.rowForm}`} >
                         <label htmlFor="title">Titolo: </label>
                         <input type="text" onChange={handleInputChange} value={formData.title} name="title" id="title" placeholder="titolo descrittivo" onKeyDown={handleKeyUp} />
+                    {errors.title && <p className={`${style.error}`}>{errors.title}</p>}
                     </div><div className={`${style.rowForm}`}>
-                        {errors.title && <p>{errors.title}</p>}
+                        
                         <label htmlFor="address">Indirizzo: </label>
                         <input type="text" onChange={handleInputChange} value={formData.address} name="address" id="address" placeholder="Via" onKeyDown={handleKeyUp} />
-                    </div>
+                        {errors.address && <p className={`${style.error}`}>{errors.address}</p>}</div>
                     <div className={`${style.rowForm}`}>
                         <label htmlFor="city">Città: </label>
                         <input type="text" onChange={handleInputChange} value={formData.city} name="city" id="city" placeholder="Città" onKeyDown={handleKeyUp} />
-                    </div><div className={`${style.rowForm}`}>
-                        {errors.city && <p>{errors.city}</p>}
+                    {errors.city && <p className={`${style.error}`}>{errors.city}</p>}</div><div className={`${style.rowForm}`}>
                         <label htmlFor="rooms">Stanze: </label>
                         <input type="number" onChange={handleInputChange} value={formData.rooms} name="rooms" id="rooms" placeholder="0" onKeyDown={handleKeyUp} />
-                        {errors.rooms && <p>{errors.rooms}</p>}
+                        {errors.rooms && <p className={`${style.error}`}>{errors.rooms}</p>}
                     </div>
                     <div className={`${style.rowForm}`}>
                         <label htmlFor="bedrooms">Letti: </label>
                         <input type="number" onChange={handleInputChange} value={formData.bedrooms} name="bedrooms" id="bedrooms" placeholder="0" onKeyDown={handleKeyUp} />
-                        {errors.bedrooms && <p>{errors.bedrooms}</p>}
+                        {errors.bedrooms && <p className={`${style.error}`}>{errors.bedrooms}</p>}
                     </div>
                     <div className={`${style.rowForm}`}>
                         <label htmlFor="bathrooms">Bagni: </label>
                         <input type="number" onChange={handleInputChange} value={formData.bathrooms} name="bathrooms" id="bathrooms" placeholder="0" onKeyDown={handleKeyUp} />
-                        {errors.bathrooms && <p>{errors.bathrooms}</p>}
+                        {errors.bathrooms && <p className={`${style.error}`}>{errors.bathrooms}</p>}
                     </div><div className={`${style.rowForm}`}>
                         <label htmlFor="square_meters">MQ: </label>
                         <input type="number" onChange={handleInputChange} value={formData.square_meters} name="square_meters" id="square_meters" placeholder="0" onKeyDown={handleKeyUp} />
-                        {errors.square_meters && <p>{errors.square_meters}</p>}
+                        {errors.square_meters && <p className={`${style.error}`}>{errors.square_meters}</p>}
                     </div>
                     <div className={`${style.rowForm}`}>
 
-                        {errors.address && <p>{errors.address}</p>}
+                        
                         <label htmlFor="email">Email: </label>
                         <input type="email" onChange={handleInputChange} value={formData.email} name="email" id="email" placeholder="example@gmail.com" onKeyDown={handleKeyUp} />
-                        {errors.email && <p>{errors.email}</p>}
+                        {errors.email && <p className={`${style.error}`}>{errors.email}</p>}
                     </div>
                     <div className={`${style.rowForm}`}>
                         <label htmlFor="url_img"></label>
