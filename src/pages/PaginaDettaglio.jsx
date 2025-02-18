@@ -6,6 +6,12 @@ import * as yup from 'yup';
 const apiUrl = import.meta.env.VITE_API_URL;
 import style from './PaginaDettaglio.module.css';
 
+const initialContactData = {
+  name: "",
+  sender: "",
+  message: ""
+};
+
 function PaginaDettaglio() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -16,8 +22,9 @@ function PaginaDettaglio() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const { slug } = useParams();
-  console.log(slug, "sono slug");
+  // console.log(slug, "sono slug");
   const [FormVisibile, setFormVisibile] = useState(false);
+  const [formContact, setFormContact] = useState(initialContactData);
 
   // Stati per il form "Contattaci"
   const [contactName, setContactName] = useState('');
@@ -28,6 +35,35 @@ function PaginaDettaglio() {
 
   // FUNZIONI PER APRIRE E CHIUDERE IL FORM
 
+  const handleInputChange = (e) => {
+    setFormContact({ ...formContact, [e.target.name]: e.target.value });
+    console.log(formContact);
+  }
+
+  const handleKeyUp = (e) => {
+    if (e.key === 'Enter') {
+      handleContactSubmit(e);
+    }
+  };
+
+  const handleReviewKeyUp = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit(e);
+    }
+  };
+
+  const handleContactSubmito = async (e) => {
+    e.preventDefault();
+
+    axios.post(`${apiUrl}/boolbnb/${slug}/contact`, formContact).then(resp => {
+      console.log("Dati validi:", formContact);
+      setFormContact(initialContactData);
+    }).catch(err => {
+      console.log(err);
+
+    })
+  };
+
   const clickVisibile = () => {
     setFormVisibile(true);
   };
@@ -36,45 +72,45 @@ function PaginaDettaglio() {
     setFormVisibile(false);
   };
 
-    //Funzione per validare il form "Contattaci"
-    const handleContactSubmit = (e) => {
-      e.preventDefault();
-  
-      const errors = {};
-  
-      if (!contactName.trim()) {
-        errors.name = "Il nome è obbligatorio";
-      } else if (contactName.length < 3) {
-        errors.name = "Il nome deve avere almeno 3 caratteri";
-      }
-  
-      if (!contactEmail.trim()) {
-        errors.email = "L'email è obbligatoria";
-      } else if (!/\S+@\S+\.\S+/.test(contactEmail)) {
-        errors.email = "L'email non è valida";
-      }
-  
-      if (!contactMessage.trim()) {
-        errors.message = "Il messaggio è obbligatorio";
-      } else if (contactMessage.length < 10) {
-        errors.message = "Il messaggio deve avere almeno 10 caratteri";
-      }
-  
-      if (Object.keys(errors).length > 0) {
-        setContactErrors(errors);
-        return;
-      }
-  
-      // Reset degli errori e invio dei dati
-      setContactErrors({});
-      console.log("Dati inviati:", { contactName, contactEmail, contactMessage });
-      
-      // Reset dei campi dopo l'invio
-      setContactName('');
-      setContactEmail('');
-      setContactMessage('');
-    };
-  
+  //Funzione per validare il form "Contattaci"
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+
+    const errors = {};
+
+    if (!contactName.trim()) {
+      errors.name = "Il nome è obbligatorio";
+    } else if (contactName.length < 3) {
+      errors.name = "Il nome deve avere almeno 3 caratteri";
+    }
+
+    if (!contactEmail.trim()) {
+      errors.email = "L'email è obbligatoria";
+    } else if (!/\S+@\S+\.\S+/.test(contactEmail)) {
+      errors.email = "L'email non è valida";
+    }
+
+    if (!contactMessage.trim()) {
+      errors.message = "Il messaggio è obbligatorio";
+    } else if (contactMessage.length < 10) {
+      errors.message = "Il messaggio deve avere almeno 10 caratteri";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setContactErrors(errors);
+      return;
+    }
+
+    // Reset degli errori e invio dei dati
+    setContactErrors({});
+    console.log("Dati inviati:", { contactName, contactEmail, contactMessage });
+
+    // Reset dei campi dopo l'invio
+    setContactName('');
+    setContactEmail('');
+    setContactMessage('');
+  };
+
 
   const validazioneRecensione = yup.object().shape({
     username: yup.string().min(3, "Deve essere minimo di tre lettere").max(255, "È troppo lungo").required("Inserire un nome").matches(/[a-zA-Z]/, "Il nome deve contenere almeno una lettera"),
@@ -115,7 +151,6 @@ function PaginaDettaglio() {
         .then(resp => {
           console.log(resp.data);
           console.log(casaSelezionata, "log di casa selezionata");
-
 
 
           // Resetta i campi del form dopo l'invio
@@ -200,34 +235,43 @@ function PaginaDettaglio() {
         <form >
           <section className={`${style.formZone}`}>
             <div className={`${style.reviewRow1}`}>
-              <label htmlFor="name">Nome:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />{errors.username && <p>{errors.username}</p>}
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required />
-              {errors.user_email && <p>{errors.user_email}</p>}
-              <label htmlFor="giorni">Giorni:</label>
-              <input
-                type="number"
-                id="giorni"
-                name="giorni"
-                value={giorni}
-                onChange={(e) => setGiorni(e.target.value)}
-                required />
+              <div className={`${style.rowForm}`}>
+                <label htmlFor="name">Nome:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  onKeyUp={handleReviewKeyUp}
+                  required
+                />{errors.username && <p className={`${style.error}`}>{errors.username}</p>}
+              </div>
+              <div className={`${style.rowForm}`}>
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyUp={handleReviewKeyUp}
+                  required />
+                {errors.user_email && <p className={`${style.error}`}>{errors.user_email}</p>}
+              </div>
+              <div className={`${style.rowForm}`}>
+                <label htmlFor="giorni">Giorni:</label>
+                <input
+                  type="number"
+                  id="giorni"
+                  name="giorni"
+                  value={giorni}
+                  onChange={(e) => setGiorni(e.target.value)}
+                  onKeyUp={handleReviewKeyUp}
+                  required />
+                {errors.lengthOfDay && <p className={`${style.error}`}>{errors.lengthOfDay}</p>}
+              </div>
             </div>
-            {errors.lengthOfDay && <p>{errors.lengthOfDay}</p>}
             <div className={`${style.reviewRow2}`}>
               <label htmlFor="reviewText">Recensione:</label>
               <textarea
@@ -235,11 +279,12 @@ function PaginaDettaglio() {
                 id="reviewText"
                 value={reviewText}
                 name="reviewText"
+                onKeyUp={handleReviewKeyUp}
                 onChange={(e) => setReviewText(e.target.value)}
                 required
               />
+              {errors.reviewContent && <p className={`${style.error}`}>{errors.reviewContent}</p>}
             </div>
-            {errors.reviewContent && <p>{errors.reviewContent}</p>}
           </section>
           <button className={`${style.inviaButton}`} onClick={handleSubmit} type="submit">Invia Recensione</button>
         </form>
@@ -253,38 +298,38 @@ function PaginaDettaglio() {
             </button>
             <form onSubmit={handleContactSubmit}>
               <div>
-                  <label htmlFor="contactName">Nome: </label>
-                  <input
-                    type="text"
-                    id="contactName"
-                    name="contactName"
-                    value={contactName}
-                    onChange={(e) => setContactName(e.target.value)}
-                  />
-                  {contactErrors.name && <p className={style.error}>{contactErrors.name}</p>}
-                  
-                  <label htmlFor="contactEmail">Email: </label>
-                  <input
-                    type="email"
-                    id="contactEmail"
-                    name="contactEmail"
-                    value={contactEmail}
-                    onChange={(e) => setContactEmail(e.target.value)}
-                  />
-                  {contactErrors.email && <p className={style.error}>{contactErrors.email}</p>}
-                 </div>
-                 <div className={`${style.mexCol}`}>
-                  <label htmlFor="message">Messaggio:</label>
-                  <textarea
-                    className={`${style.formCol}`}
-                    id="message"
-                    name="message"
-                    value={contactMessage}
-                    onChange={(e) => setContactMessage(e.target.value)}
-                  />
-                  {contactErrors.message && <p className={style.error}>{contactErrors.message}</p>}
-                </div>
-                <button className={`${style.inviaButton}`} type="submit">Invia</button>
+                <label htmlFor="contactName">Nome: </label>
+                <input
+                  type="text"
+                  id="contactName"
+                  name="contactName"
+                  value={contactName}
+                  onChange={(e) => setContactName(e.target.value)}
+                />
+                {contactErrors.name && <p className={style.error}>{contactErrors.name}</p>}
+
+                <label htmlFor="contactEmail">Email: </label>
+                <input
+                  type="email"
+                  id="contactEmail"
+                  name="contactEmail"
+                  value={contactEmail}
+                  onChange={(e) => setContactEmail(e.target.value)}
+                />
+                {contactErrors.email && <p className={style.error}>{contactErrors.email}</p>}
+              </div>
+              <div className={`${style.mexCol}`}>
+                <label htmlFor="message">Messaggio:</label>
+                <textarea
+                  className={`${style.formCol}`}
+                  id="message"
+                  name="message"
+                  value={contactMessage}
+                  onChange={(e) => setContactMessage(e.target.value)}
+                />
+                {contactErrors.message && <p className={style.error}>{contactErrors.message}</p>}
+              </div>
+              <button className={`${style.inviaButton}`} type="submit">Invia</button>
             </form>
           </div>
         </div>
