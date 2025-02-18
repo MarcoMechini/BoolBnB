@@ -132,7 +132,7 @@ function PaginaInserimento() {
                                 <option key={curProp.id} value={curProp.id}>{curProp.type}</option>
                             ))}
                         </select>
-                        {errors.id_property && <p>{errors.id_property}</p>}
+                        {errors.id_property && <p className={`${style.error}`}>{errors.id_property}</p>}
                         </div>
                         
                         <div className={`${style.rowForm}`} >
