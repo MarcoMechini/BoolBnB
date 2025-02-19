@@ -26,7 +26,7 @@ function PaginaDettaglio() {
   const [FormVisibile, setFormVisibile] = useState(false);
   const [formContact, setFormContact] = useState(initialContactData);
   const [contactErrors, setContactErrors] = useState({});
-  const { message, setMessage } = useGlobalContext();
+  const { message, setMessage, resetAlertMessage } = useGlobalContext();
 
   // FUNZIONI PER APRIRE E CHIUDERE IL FORM
 
