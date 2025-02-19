@@ -24,7 +24,7 @@ function PaginaDettaglio() {
   const { slug } = useParams();
   // console.log(slug, "sono slug");
   const [FormVisibile, setFormVisibile] = useState(false);
-  const [formContact, setFormContact] = useState(initialContactData);
+  // const [formContact, setFormContact] = useState(initialContactData);
 
   // Stati per il form "Contattaci"
   const [contactName, setContactName] = useState('');
@@ -34,11 +34,6 @@ function PaginaDettaglio() {
 
 
   // FUNZIONI PER APRIRE E CHIUDERE IL FORM
-
-  const handleInputChange = (e) => {
-    setFormContact({ ...formContact, [e.target.name]: e.target.value });
-    console.log(formContact);
-  }
 
   const handleKeyUp = (e) => {
     if (e.key === 'Enter') {
@@ -50,18 +45,6 @@ function PaginaDettaglio() {
     if (e.key === 'Enter') {
       handleSubmit(e);
     }
-  };
-
-  const handleContactSubmito = async (e) => {
-    e.preventDefault();
-
-    axios.post(`${apiUrl}/boolbnb/${slug}/contact`, formContact).then(resp => {
-      console.log("Dati validi:", formContact);
-      setFormContact(initialContactData);
-    }).catch(err => {
-      console.log(err);
-
-    })
   };
 
   const clickVisibile = () => {
@@ -109,6 +92,17 @@ function PaginaDettaglio() {
     setContactName('');
     setContactEmail('');
     setContactMessage('');
+
+
+    axios.post(`${apiUrl}/boolbnb/${slug}/contact`, { contactName, contactEmail, contactMessage }).then(resp => {
+      setContactName('');
+      setContactEmail('');
+      setContactMessage('');
+      console.log('log dentro axios', resp.data);
+
+    }).catch(err => {
+      console.log(err);
+    })
   };
 
 
@@ -305,6 +299,7 @@ function PaginaDettaglio() {
                   name="contactName"
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
+                  onKeyUp={handleKeyUp}
                 />
                 {contactErrors.name && <p className={style.error}>{contactErrors.name}</p>}
 
@@ -315,6 +310,7 @@ function PaginaDettaglio() {
                   name="contactEmail"
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
+                  onKeyUp={handleKeyUp}
                 />
                 {contactErrors.email && <p className={style.error}>{contactErrors.email}</p>}
               </div>
@@ -326,6 +322,7 @@ function PaginaDettaglio() {
                   name="message"
                   value={contactMessage}
                   onChange={(e) => setContactMessage(e.target.value)}
+                  onKeyUp={handleKeyUp}
                 />
                 {contactErrors.message && <p className={style.error}>{contactErrors.message}</p>}
               </div>
