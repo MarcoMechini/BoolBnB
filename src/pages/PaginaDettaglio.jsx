@@ -50,13 +50,6 @@ function PaginaDettaglio() {
     setFormVisibile(false);
   };
 
-  const resetAlertMessage = () => {
-    setTimeout(() => {
-      setMessage(null);
-    }, 5000);
-    clickInvisibile();
-  }
-
   //Funzione per validare il form "Contattaci"
   const handleContactSubmit = (e) => {
     e.preventDefault();
@@ -98,11 +91,12 @@ function PaginaDettaglio() {
       setFormContact(initialContactData);
       console.log('log dentro axios', resp.data);
       // metterli un timer per far sparire il messaggio
-      setMessage({ type: 'success', text: 'Dati inviati con successo!' });
+      setMessage({ type: 'success', text: 'Email inviata con successo!' });
+      clickInvisibile();
       resetAlertMessage();
     }).catch(err => {
       // metterli un timer per far sparire il messaggio
-      setMessage({ type: 'error', text: 'Errore nell\'invio dei dati.' });
+      setMessage({ type: 'error', text: 'Errore nell\'invio della mail.' });
       resetAlertMessage();
       console.log(err);
     })
@@ -153,16 +147,20 @@ function PaginaDettaglio() {
           console.log(resp.data);
           console.log(casaSelezionata, "log di casa selezionata");
 
-
           // Resetta i campi del form dopo l'invio
           setName('');
           setEmail('');
           setReviewText('');
           setGiorni('');
+          setMessage({ type: 'success', text: 'Recensione inviata con successo!' });
+          resetAlertMessage();
           caricoCasa();
+
         })
         .catch(err => {
           console.log(err);
+          setMessage({ type: 'error', text: 'Errore nell\'invio della recensione.' });
+          resetAlertMessage();
         });
     } catch (err) {
       const errorMessages = {};

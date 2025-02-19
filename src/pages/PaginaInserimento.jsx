@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import * as yup from 'yup';
 const apiUrl = import.meta.env.VITE_API_URL;
 import style from './PaginaInserimento.module.css';
+import AppAlertMessage from "../Components/AppAlertMessage";
+import { useGlobalContext } from "../context/GlobalContext";
 
 const schemaValidazione = yup.object().shape({
     id_property: yup.number().typeError("Devi scegliere una tipologia di appartamento").required("Devi scegliere una tipologia di appartamento").positive("Devi scegliere una tipologia di appartamento").integer("Devi scegliere una tipologia di appartamento"),
@@ -47,6 +49,7 @@ function PaginaInserimento() {
     const [property, setProperty] = useState([]);
     const [errors, setErrors] = useState({});
     const [file, setFile] = useState(null);
+    const { message, setMessage, resetAlertMessage } = useGlobalContext();
 
     const sendNewHouse = () => {
         const formDataToSend = new FormData();
@@ -61,14 +64,17 @@ function PaginaInserimento() {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
+        }).then(resp => {
+            setFormData(initialFormData);
+            setFile(null);
+            console.log(resp.data.status);
+            setMessage({ type: 'success', text: 'Immobile salvato correttamente.' });
+            resetAlertMessage();
         })
-            .then(resp => {
-                setFormData(initialFormData);
-                setFile(null);
-                console.log(resp.data.status);
-            })
             .catch(err => {
                 console.log(err);
+                setMessage({ type: 'error', text: 'Errore nel salvataggio dell\'immobile.' });
+                resetAlertMessage();
             });
     };
 
@@ -94,7 +100,6 @@ function PaginaInserimento() {
 
         try {
             await schemaValidazione.validate(formData, { abortEarly: false });
-            console.log("Dati validi:", formData);
             setErrors({}); // Reset degli errori se la validazione passa
             sendNewHouse();
         } catch (err) {
@@ -115,6 +120,7 @@ function PaginaInserimento() {
 
     return (
         <>
+            <AppAlertMessage message={message} />
             <section className="container">
                 <h2 className={`${style.title}`}>Inserisci dati della casa</h2>
                 <form className={`${style.rowForm}`}>
@@ -164,10 +170,10 @@ function PaginaInserimento() {
                         <input type="email" onChange={handleInputChange} value={formData.email} name="email" id="email" placeholder="example@gmail.com" onKeyDown={handleKeyUp} />
                         {errors.email && <p className={`${style.error}`}>{errors.email}</p>}
                         <label htmlFor="descr">Descrizione: </label>
-                        <textarea onChange={handleInputChange} value={formData.descr} name="descr" id="descr" rows="4" placeholder="Descrizione casa" onKeyUp={handleKeyUp} />
+                        <textarea onChange={handleInputChange} value={formData.descr} name="descr" id="descr" rows="4" placeholder="Descrizione casa, inserisci almeno 10 caratteri" onKeyUp={handleKeyUp} />
                     </div>
                 </form>
-                 <button className={`${style.buttonInvio}`} onClick={handleSubmit}>Invia</button>
+                <button className={`${style.buttonInvio}`} onClick={handleSubmit}>Invia</button>
             </section>
         </>
     );
