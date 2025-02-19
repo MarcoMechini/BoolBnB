@@ -71,14 +71,20 @@ function HomePage() {
                                         <img className={`${styles.colCard1}`} src={`${apiUrl}/images/${curCasa.url_img}`} alt="" />
                                         <div className={`${styles.colCard2}`}>
                                             <div className={`${styles.rowDescr}`}>
-                                                <div>Città: <strong>{curCasa.city}</strong> </div>
-                                                <div>{curCasa.address}</div>
-                                                <div>{curCasa.title}</div>
+                                                <div className={`${styles.nomeC}`}>Città:&nbsp; <strong>{curCasa.city}</strong> </div>
+                                                <div className={`${styles.indirizzo}`}>Indirizzo:&nbsp;<strong>{curCasa.address}</strong></div>
+                                                <div className={`${styles.descr}`}>descrizione: <br /><div className={`${styles.descr2}`}>{curCasa.title}</div></div>
                                             </div>
                                             <div className={`${styles.rowLike}`}>
                                                 <Link className={`${styles.infoButton}`} to={`/Ricerca/${curCasa.slug}`}><div className={`${styles.info}`}>INFO</div></Link>
-                                                <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike></div></div>
-                                    </div></div>
+                                                <div className={`${styles.colLike}`}>
+                                                    <AppLike flag={flag} setFlag={setFlag} id={curCasa.id}></AppLike>
+                                                    <p>{curCasa.likes}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             ))
                         ) : (<p>nessuna casa trovata in questa città</p>)}
                     </div>
