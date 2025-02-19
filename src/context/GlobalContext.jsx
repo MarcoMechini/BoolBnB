@@ -1,10 +1,11 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const GlobalContext = createContext()
 
 function GlobalProvider({ children }) {
+    const [message, setMessage] = useState(null);
 
-    const globalProviderValue = {}
+    const globalProviderValue = { message, setMessage }
 
     return (
         <GlobalContext.Provider value={globalProviderValue}>

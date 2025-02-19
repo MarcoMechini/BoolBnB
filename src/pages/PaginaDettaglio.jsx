@@ -5,6 +5,8 @@ import AppLike from "../Components/AppLike";
 import * as yup from 'yup';
 const apiUrl = import.meta.env.VITE_API_URL;
 import style from './PaginaDettaglio.module.css';
+import { useGlobalContext } from "../context/GlobalContext";
+import AppAlertMessage from "../Components/AppAlertMessage";
 
 const initialContactData = {
   name: "",
@@ -21,15 +23,10 @@ function PaginaDettaglio() {
   const [flag, setFlag] = useState(0);
   const [errors, setErrors] = useState({});
   const { slug } = useParams();
-  // console.log(slug, "sono slug");
   const [FormVisibile, setFormVisibile] = useState(false);
   const [formContact, setFormContact] = useState(initialContactData);
-
-  // Stati per il form "Contattaci"
-  // const [contactName, setContactName] = useState('');
-  // const [contactEmail, setContactEmail] = useState('');
-  // const [contactMessage, setContactMessage] = useState('');
   const [contactErrors, setContactErrors] = useState({});
+  const { message, setMessage } = useGlobalContext();
 
   // FUNZIONI PER APRIRE E CHIUDERE IL FORM
 
@@ -52,6 +49,13 @@ function PaginaDettaglio() {
   const clickInvisibile = () => {
     setFormVisibile(false);
   };
+
+  const resetAlertMessage = () => {
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+    clickInvisibile();
+  }
 
   //Funzione per validare il form "Contattaci"
   const handleContactSubmit = (e) => {
@@ -93,9 +97,13 @@ function PaginaDettaglio() {
     axios.post(`${apiUrl}/boolbnb/${slug}/contact`, formContact).then(resp => {
       setFormContact(initialContactData);
       console.log('log dentro axios', resp.data);
-      clickInvisibile();
-
+      // metterli un timer per far sparire il messaggio
+      setMessage({ type: 'success', text: 'Dati inviati con successo!' });
+      resetAlertMessage();
     }).catch(err => {
+      // metterli un timer per far sparire il messaggio
+      setMessage({ type: 'error', text: 'Errore nell\'invio dei dati.' });
+      resetAlertMessage();
       console.log(err);
     })
   };
@@ -169,15 +177,14 @@ function PaginaDettaglio() {
         errorMessages[err.path] = err.message;
       }
 
-
       setErrors(errorMessages);
     }
-
   };
 
 
   return (
     <>
+      <AppAlertMessage message={message} />
       <section className="container">
         <div className={`${style.row}`}>
           {/* Controlla se la casa è stata caricata */}
