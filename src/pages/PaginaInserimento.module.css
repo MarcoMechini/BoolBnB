@@ -1,19 +1,16 @@
-.formInserimento {
+.rowForm {
+    margin: 1%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 5%;
-    border: 3px solid #2754a3;
-    padding: 2%;
-
+   
 }
 
-.rowForm {
+.colForm {
     width: calc(100% / 2);
-    margin: 2%;
     display: flex;
     flex-direction: column;
+    margin: 2%;
+    text-align: start;
 }
 
 .selectLayout {
@@ -27,4 +24,33 @@
 .error {
     color: red;
     border-radius: 10px;
+}
+.buttonInvio{
+    background-color:  #c14e07 ;
+    color: white;
+    border-radius: 10px;
+    padding: 1% 3%;
+    border: none;
+}
+
+.title{
+    color: #c14e07;
+    margin-top: 2%;
+}
+
+/* MEDIA QUERY */
+
+@media (max-width: 700px) {
+
+    .colForm {
+        width: 90%;
+        margin: 2%;
+    }
+    .rowForm {
+        margin: 2%;
+        width: 100%;
+        display: block;
+        
+    }
+
 }
