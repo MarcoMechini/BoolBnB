@@ -3,7 +3,7 @@
     color: white;
     margin: 2px;
     width: 100%;
-    height: 350px;
+    height: 400px;
     border-radius: 12px;
     overflow: hidden;
     display: flex;
@@ -16,6 +16,10 @@
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 10px;
+}
+
+.recen{
+    color: black;
 }
 
 .col {
@@ -32,10 +36,15 @@
 
 .colCard2 {
     display: flex;
+    text-align: start;
+    gap: 10px;
+    padding: 10px 10px ;
     flex-direction: column;
     width: 35%;
-    padding: 1%;
-    padding-top: 25px;
+}
+
+.innerRec{
+    margin-top:20px;
 }
 
 /* review zone */
@@ -44,8 +53,10 @@
     border-radius: 12px;
     margin-bottom: 3px;
     padding: 2px;
+    padding: 10px 10px;
     background-color: #2754a3;
     color: white;
+    text-align: start;
 }
 
 /* form zone */
@@ -84,8 +95,13 @@
     width: 100%;
     margin: 2%;
     display: flex;
+    text-align: start;
+    gap: 10px;
     flex-direction: column;
+}
 
+.input{
+    height: 30px;
 }
 
 
@@ -176,10 +192,31 @@
 
 
 /* MEDIA QUERY */
-@media (max-width: 900px) {
+@media (max-width: 1290px) {
 
     .col {
         width: 100%;
         box-sizing: border-box;
+    }
+}
+
+@media (max-width: 720px) {
+    .colCard1 {
+        width: 100%;
+        height: 60%;
+    }
+
+
+    .colCard2 {
+        width: 100%;
+    }
+
+    .descrCard{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .card {
+        overflow-y: auto;
     }
 }

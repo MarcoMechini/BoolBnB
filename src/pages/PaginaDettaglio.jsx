@@ -193,15 +193,14 @@ function PaginaDettaglio() {
                 <img className={`${style.colCard1}`} src={`${apiUrl}/images/${casaSelezionata.url_img}`} alt="" />
                 <div className={`${style.colCard2}`}>
                   <h4>{casaSelezionata.title}</h4>
-                  <div>{casaSelezionata.address}</div>
-                  <div>{casaSelezionata.city}</div>
-                  <div>Mq:{casaSelezionata.square_meters}</div>
+                  <div>Indirizzo: &nbsp;{casaSelezionata.address}</div>
+                  <div>città:&nbsp;{casaSelezionata.city}</div>
+                  <div>Mq:&nbsp;{casaSelezionata.square_meters}</div>
                   <div>Stanze da Letto: {casaSelezionata.rooms}</div>
                   <div>letti: {casaSelezionata.bedrooms}</div>
                   <div>Bagni: {casaSelezionata.bathrooms}</div>
-                  <div>{casaSelezionata.squere_meters}</div>
                   <div>Like: {casaSelezionata.likes}</div>
-                  <div><strong>Descrizione: </strong> {casaSelezionata.descr}</div>
+                  <div className={`${style.descrCard}`}><strong>Descrizione:&nbsp;</strong> <div> {casaSelezionata.descr}</div></div>
                   <div className={`${style.contLike}`}>
                     <AppLike flag={flag} setFlag={setFlag} id={casaSelezionata.id}></AppLike>
                     <button onClick={clickVisibile} className={`${style.contactButton}`}>
@@ -218,11 +217,12 @@ function PaginaDettaglio() {
           {/* review section */}
 
           <section className={`${style.col}`}>
+            <p className={`${style.recen}`}>Recensioni</p>
             {casaSelezionata && casaSelezionata.reviews.map((curRecensione, index) => (
               <div className={`${style.cardReview}`} key={index}>
                 <div >{curRecensione.username}</div>
-                <div>Notti trascorse:{curRecensione.length_of_stay}</div>
-                <div><strong>Recensione</strong></div>
+                <div>Notti trascorse:&nbsp;{curRecensione.length_of_stay}</div>
+                <div><strong>Recensione:</strong></div>
                 <div>{curRecensione.review_content}</div>
               </div>
             ))}
@@ -230,16 +230,22 @@ function PaginaDettaglio() {
           </section></div>
 
         {/* form layout */}
+        <h3 className={`${style.innerRec}`}>Scrivi una Recensione</h3>
         <form >
           <section className={`${style.formZone}`}>
+
             <div className={`${style.reviewRow1}`}>
+
               <div className={`${style.rowForm}`}>
+
                 <label htmlFor="name">Nome:</label>
                 <input
+                  className={`${style.input}`}
                   type="text"
                   id="name"
                   name="name"
                   value={name}
+                  placeholder="Inserisci il tuo nome"
                   onChange={(e) => setName(e.target.value)}
                   onKeyUp={handleReviewKeyUp}
                   required
@@ -248,10 +254,12 @@ function PaginaDettaglio() {
               <div className={`${style.rowForm}`}>
                 <label htmlFor="email">Email:</label>
                 <input
+                  className={`${style.input}`}
                   type="email"
                   id="email"
                   name="email"
                   value={email}
+                  placeholder="Inserisci la tua email"
                   onChange={(e) => setEmail(e.target.value)}
                   onKeyUp={handleReviewKeyUp}
                   required />
@@ -260,10 +268,12 @@ function PaginaDettaglio() {
               <div className={`${style.rowForm}`}>
                 <label htmlFor="giorni">Giorni:</label>
                 <input
+                  className={`${style.input}`}
                   type="number"
                   id="giorni"
                   name="giorni"
                   value={giorni}
+                  placeholder="Iscrisci i giorni di permanenza"
                   onChange={(e) => setGiorni(e.target.value)}
                   onKeyUp={handleReviewKeyUp}
                   required />
