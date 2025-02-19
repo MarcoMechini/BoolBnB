@@ -5,7 +5,6 @@ import AppLike from "../Components/AppLike";
 import * as yup from 'yup';
 const apiUrl = import.meta.env.VITE_API_URL;
 import style from './PaginaDettaglio.module.css';
-import { set } from "react-hook-form";
 
 const initialContactData = {
   name: "",
@@ -24,12 +23,12 @@ function PaginaDettaglio() {
   const { slug } = useParams();
   // console.log(slug, "sono slug");
   const [FormVisibile, setFormVisibile] = useState(false);
-  // const [formContact, setFormContact] = useState(initialContactData);
+  const [formContact, setFormContact] = useState(initialContactData);
 
   // Stati per il form "Contattaci"
-  const [contactName, setContactName] = useState('');
-  const [contactEmail, setContactEmail] = useState('');
-  const [contactMessage, setContactMessage] = useState('');
+  // const [contactName, setContactName] = useState('');
+  // const [contactEmail, setContactEmail] = useState('');
+  // const [contactMessage, setContactMessage] = useState('');
   const [contactErrors, setContactErrors] = useState({});
 
   // FUNZIONI PER APRIRE E CHIUDERE IL FORM
@@ -60,21 +59,22 @@ function PaginaDettaglio() {
 
     const errors = {};
 
-    if (!contactName.trim()) {
+    console.log(formContact.name);
+    if (!formContact.name || !formContact.name.trim()) {
       errors.name = "Il nome è obbligatorio";
-    } else if (contactName.length < 3) {
+    } else if (formContact.name.length < 3) {
       errors.name = "Il nome deve avere almeno 3 caratteri";
     }
 
-    if (!contactEmail.trim()) {
-      errors.email = "L'email è obbligatoria";
-    } else if (!/\S+@\S+\.\S+/.test(contactEmail)) {
-      errors.email = "L'email non è valida";
+    if (!formContact.sender || !formContact.sender.trim()) {
+      errors.sender = "L'email è obbligatoria";
+    } else if (!/\S+@\S+\.\S+/.test(formContact.sender)) {
+      errors.sender = "L'email non è valida";
     }
 
-    if (!contactMessage.trim()) {
+    if (!formContact.message || !formContact.message.trim()) {
       errors.message = "Il messaggio è obbligatorio";
-    } else if (contactMessage.length < 10) {
+    } else if (formContact.message.length < 10) {
       errors.message = "Il messaggio deve avere almeno 10 caratteri";
     }
 
@@ -85,18 +85,13 @@ function PaginaDettaglio() {
 
     // Reset degli errori e invio dei dati
     setContactErrors({});
-    console.log("Dati inviati:", { contactName, contactEmail, contactMessage });
+    console.log("Dati inviati:", formContact);
 
     // Reset dei campi dopo l'invio
-    setContactName('');
-    setContactEmail('');
-    setContactMessage('');
 
 
-    axios.post(`${apiUrl}/boolbnb/${slug}/contact`, { contactName, contactEmail, contactMessage }).then(resp => {
-      setContactName('');
-      setContactEmail('');
-      setContactMessage('');
+    axios.post(`${apiUrl}/boolbnb/${slug}/contact`, formContact).then(resp => {
+      setFormContact(initialContactData);
       console.log('log dentro axios', resp.data);
       clickInvisibile();
 
@@ -124,6 +119,10 @@ function PaginaDettaglio() {
   useEffect(() => {
     caricoCasa();
   }, [slug, flag])
+
+  const handleChange = e => {
+    setFormContact({ ...formContact, [e.target.name]: e.target.value });
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -174,9 +173,7 @@ function PaginaDettaglio() {
       setErrors(errorMessages);
     }
 
-
   };
-
 
 
   return (
@@ -294,25 +291,25 @@ function PaginaDettaglio() {
             </button>
             <form onSubmit={handleContactSubmit}>
               <div>
-                <label htmlFor="contactName">Nome: </label>
+                <label htmlFor="name">Nome: </label>
                 <input
                   type="text"
-                  id="contactName"
-                  name="contactName"
-                  value={contactName}
-                  onChange={(e) => setContactName(e.target.value)}
+                  id="name"
+                  name="name"
+                  value={formContact.name}
+                  onChange={handleChange}
                 />
                 {contactErrors.name && <p className={style.error}>{contactErrors.name}</p>}
 
-                <label htmlFor="contactEmail">Email: </label>
+                <label htmlFor="sender">Email: </label>
                 <input
                   type="email"
-                  id="contactEmail"
-                  name="contactEmail"
-                  value={contactEmail}
-                  onChange={(e) => setContactEmail(e.target.value)}
+                  id="sender"
+                  name="sender"
+                  value={formContact.sender}
+                  onChange={handleChange}
                 />
-                {contactErrors.email && <p className={style.error}>{contactErrors.email}</p>}
+                {contactErrors.sender && <p className={style.error}>{contactErrors.sender}</p>}
               </div>
               <div className={`${style.mexCol}`}>
                 <label htmlFor="message">Messaggio:</label>
@@ -320,8 +317,8 @@ function PaginaDettaglio() {
                   className={`${style.formCol}`}
                   id="message"
                   name="message"
-                  value={contactMessage}
-                  onChange={(e) => setContactMessage(e.target.value)}
+                  value={formContact.message}
+                  onChange={handleChange}
                 />
                 {contactErrors.message && <p className={style.error}>{contactErrors.message}</p>}
               </div>
