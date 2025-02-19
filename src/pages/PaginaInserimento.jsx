@@ -163,13 +163,11 @@ function PaginaInserimento() {
                         <label htmlFor="email">Email: </label>
                         <input type="email" onChange={handleInputChange} value={formData.email} name="email" id="email" placeholder="example@gmail.com" onKeyDown={handleKeyUp} />
                         {errors.email && <p className={`${style.error}`}>{errors.email}</p>}
-
                         <label htmlFor="descr">Descrizione: </label>
                         <textarea onChange={handleInputChange} value={formData.descr} name="descr" id="descr" rows="4" placeholder="Descrizione casa" onKeyUp={handleKeyUp} />
-                       <button className={`${style.buttonInvio}`} onClick={handleSubmit}>Invia</button>
                     </div>
-                      
                 </form>
+                 <button className={`${style.buttonInvio}`} onClick={handleSubmit}>Invia</button>
             </section>
         </>
     );
