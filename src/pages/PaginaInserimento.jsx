@@ -116,8 +116,9 @@ function PaginaInserimento() {
     return (
         <>
             <section className="container">
-                <form className={`${style.formInserimento}`}>
-                    <div className={`${style.rowForm}`}>
+                <h2 className={`${style.title}`}>Inserisci dati della casa</h2>
+                <form className={`${style.rowForm}`}>
+                    <div className={`${style.colForm}`}>
                         <select
                             className={`${style.selectLayout}`}
                             name="id_property"
@@ -133,55 +134,41 @@ function PaginaInserimento() {
                             ))}
                         </select>
                         {errors.id_property && <p className={`${style.error}`}>{errors.id_property}</p>}
-                    </div>
-
-                    <div className={`${style.rowForm}`} >
                         <label htmlFor="title">Titolo: </label>
                         <input type="text" onChange={handleInputChange} value={formData.title} name="title" id="title" placeholder="titolo descrittivo" onKeyDown={handleKeyUp} />
-                    {errors.title && <p className={`${style.error}`}>{errors.title}</p>}
-                    </div><div className={`${style.rowForm}`}>
-                        
+                        {errors.title && <p className={`${style.error}`}>{errors.title}</p>}
                         <label htmlFor="address">Indirizzo: </label>
                         <input type="text" onChange={handleInputChange} value={formData.address} name="address" id="address" placeholder="Via" onKeyDown={handleKeyUp} />
-                        {errors.address && <p className={`${style.error}`}>{errors.address}</p>}</div>
-                    <div className={`${style.rowForm}`}>
+                        {errors.address && <p className={`${style.error}`}>{errors.address}</p>}
                         <label htmlFor="city">Città: </label>
                         <input type="text" onChange={handleInputChange} value={formData.city} name="city" id="city" placeholder="Città" onKeyDown={handleKeyUp} />
-                    {errors.city && <p className={`${style.error}`}>{errors.city}</p>}</div><div className={`${style.rowForm}`}>
+                        {errors.city && <p className={`${style.error}`}>{errors.city}</p>}
                         <label htmlFor="rooms">Stanze: </label>
                         <input type="number" onChange={handleInputChange} value={formData.rooms} name="rooms" id="rooms" placeholder="0" onKeyDown={handleKeyUp} />
                         {errors.rooms && <p className={`${style.error}`}>{errors.rooms}</p>}
-                    </div>
-                    <div className={`${style.rowForm}`}>
                         <label htmlFor="bedrooms">Letti: </label>
                         <input type="number" onChange={handleInputChange} value={formData.bedrooms} name="bedrooms" id="bedrooms" placeholder="0" onKeyDown={handleKeyUp} />
                         {errors.bedrooms && <p className={`${style.error}`}>{errors.bedrooms}</p>}
                     </div>
-                    <div className={`${style.rowForm}`}>
+
+                    <div className={`${style.colForm}`}>
+                        <label htmlFor="url_img"></label>
+                        <input className={`${style.selectLayout}`} type="file" onChange={handleInputChange} name="url_img" id="url_img" placeholder="immagine" onKeyDown={handleKeyUp} />
                         <label htmlFor="bathrooms">Bagni: </label>
                         <input type="number" onChange={handleInputChange} value={formData.bathrooms} name="bathrooms" id="bathrooms" placeholder="0" onKeyDown={handleKeyUp} />
                         {errors.bathrooms && <p className={`${style.error}`}>{errors.bathrooms}</p>}
-                    </div><div className={`${style.rowForm}`}>
                         <label htmlFor="square_meters">MQ: </label>
                         <input type="number" onChange={handleInputChange} value={formData.square_meters} name="square_meters" id="square_meters" placeholder="0" onKeyDown={handleKeyUp} />
                         {errors.square_meters && <p className={`${style.error}`}>{errors.square_meters}</p>}
-                    </div>
-                    <div className={`${style.rowForm}`}>
-
-                        
                         <label htmlFor="email">Email: </label>
                         <input type="email" onChange={handleInputChange} value={formData.email} name="email" id="email" placeholder="example@gmail.com" onKeyDown={handleKeyUp} />
                         {errors.email && <p className={`${style.error}`}>{errors.email}</p>}
-                    </div>
-                    <div className={`${style.rowForm}`}>
-                        <label htmlFor="url_img"></label>
-                        <input className={`${style.selectLayout}`} type="file" onChange={handleInputChange} name="url_img" id="url_img" placeholder="immagine" onKeyDown={handleKeyUp} />
-                    </div>
-                    <div className={`${style.rowForm}`}>
+
                         <label htmlFor="descr">Descrizione: </label>
                         <textarea onChange={handleInputChange} value={formData.descr} name="descr" id="descr" rows="4" placeholder="Descrizione casa" onKeyUp={handleKeyUp} />
+                       <button className={`${style.buttonInvio}`} onClick={handleSubmit}>Invia</button>
                     </div>
-                    <button onClick={handleSubmit}>Invia</button>
+                      
                 </form>
             </section>
         </>
