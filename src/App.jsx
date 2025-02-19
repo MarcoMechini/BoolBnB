@@ -6,6 +6,7 @@ import PaginaRicerca from './pages/PaginaRicerca'
 import PaginaDettaglio from './pages/PaginaDettaglio'
 import PaginaInserimento from './pages/PaginaInserimento'
 import { GlobalProvider } from './context/GlobalContext'
+import NotFound from './pages/NotFound'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
                 <Route path=':slug' element={<PaginaDettaglio />}></Route>
               </Route>
               <Route path='/Inserimento' element={<PaginaInserimento />}></Route>
+              <Route path='*' element={<NotFound />} />
             </Route>
           </Routes>
         </BrowserRouter>
