@@ -80,7 +80,6 @@ body {
 .descr {
     display: flex;
     text-align: start;
-    flex-direction: column;
     gap: 5px
 }
 
@@ -149,5 +148,20 @@ body {
         margin-bottom: 10px;
     }
 
+}
 
+@media (max-width: 840px) {
+
+    .card {
+        height: auto;
+    }
+
+    .colCard2 {
+        width: 100%;
+        padding-right: 10px;
+    }
+
+    .colCard1 {
+        width: 100%;
+    }
 }

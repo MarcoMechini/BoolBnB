@@ -73,7 +73,7 @@ function HomePage() {
                                             <div className={`${styles.rowDescr}`}>
                                                 <div className={`${styles.nomeC}`}>Città:&nbsp; <strong>{curCasa.city}</strong> </div>
                                                 <div className={`${styles.indirizzo}`}>Indirizzo:&nbsp;<strong>{curCasa.address}</strong></div>
-                                                <div className={`${styles.descr}`}>descrizione: <br /><div className={`${styles.descr2}`}>{curCasa.title}</div></div>
+                                                <div className={`${styles.descr}`}>descrizione: <div className={`${styles.descr2}`}>{curCasa.title}</div></div>
                                             </div>
                                             <div className={`${styles.rowLike}`}>
                                                 <Link className={`${styles.infoButton}`} to={`/Ricerca/${curCasa.slug}`}><div className={`${styles.info}`}>INFO</div></Link>
