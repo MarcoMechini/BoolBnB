@@ -41,7 +41,7 @@ function HomePage() {
 
         setSearch("");
 
-        navigate("/Ricerca", { state: { filtroCittà: filtro, city: search } });
+        navigate(`/Ricerca?city=${search}`, { state: { filtroCittà: filtro, city: search } });
     };
 
 
