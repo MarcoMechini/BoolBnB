@@ -5,7 +5,17 @@ const GlobalContext = createContext()
 function GlobalProvider({ children }) {
     const [message, setMessage] = useState(null);
 
-    const globalProviderValue = { message, setMessage }
+    const resetAlertMessage = () => {
+        setTimeout(() => {
+            setMessage(null);
+        }, 5000);
+    }
+
+    const globalProviderValue = {
+        message,
+        setMessage,
+        resetAlertMessage
+    }
 
     return (
         <GlobalContext.Provider value={globalProviderValue}>
