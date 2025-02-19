@@ -1,29 +1,32 @@
-.colCard1{
+.colCard1 {
     width: 60%;
     object-fit: cover;
     background-color: #c14e07;
 }
-.colCard2{
+
+.colCard2 {
     width: 35%;
     padding: 1%;
-    
+
 }
-.rowLike{
+
+.rowLike {
     width: 100%;
     display: flex;
     justify-content: space-between;
     height: 20%;
 }
-.rowDescr{
+
+.rowDescr {
     width: 100%;
     height: 80%;
     display: flex;
-  flex-direction: column;
-  gap: 5px;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.card{
-    background-color:#2754a3;
+.card {
+    background-color: #2754a3;
     color: white;
     margin: 2px;
     width: 100%;
@@ -33,61 +36,68 @@
     border-radius: 12px;
     overflow: hidden;
 }
-body{
+
+body {
     background-color: #f0e4ce;
 }
-.row{
+
+.row {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
     margin-top: 10px;
 }
 
 .col {
     width: calc(90% / 2);
-    
+
     box-sizing: border-box;
 }
 
 
 /* scritta info  */
 
-.infoButton{
-    background-color:  #c14e07 ;
+.infoButton {
+    background-color: #c14e07;
     color: white;
     border-radius: 10px;
     height: 18px;
     padding: 1%;
-    
-    
+
+
 }
-.info{
+
+.info {
     animation: movimento 2s ease-in-out infinite;
 }
 
 @keyframes movimento {
     0% {
-        transform: scale(1); 
+        transform: scale(1);
     }
+
     50% {
-        transform: scale(0.9); 
+        transform: scale(0.9);
     }
+
     100% {
-        transform: scale(1); 
-}
+        transform: scale(1);
+    }
 }
 
 /* searchbar zone */
-.searchBar{
+.searchBar {
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
     padding: 3px;
     border: none;
 }
-.buttonSearch{
+
+.buttonSearch {
     border-radius: 10px;
-    background-color:  #c14e07 ;
+    background-color: #c14e07;
     color: white;
     padding: 3px;
     border: none;
@@ -98,11 +108,9 @@ body{
 @media (max-width: 900px) {
 
     .col {
-        width: 100% ;
+        width: 100%;
         box-sizing: border-box;
     }
 
 
 }
-
-
