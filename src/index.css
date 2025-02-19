@@ -20,7 +20,16 @@
     text-align: center;
 }
 
+input {
+  border: none;
+  border-radius: 10px;
+  padding: 1%;
+}
 
+textarea {
+  border: none;
+  border-radius: 10px;
+}
 
 /* colori di base usati */
 :root{
