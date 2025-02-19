@@ -5,6 +5,7 @@ import AppLike from "../Components/AppLike";
 import * as yup from 'yup';
 const apiUrl = import.meta.env.VITE_API_URL;
 import style from './PaginaDettaglio.module.css';
+import { set } from "react-hook-form";
 
 const initialContactData = {
   name: "",
@@ -20,7 +21,6 @@ function PaginaDettaglio() {
   const [casaSelezionata, setCasaSelezionata] = useState();
   const [flag, setFlag] = useState(0);
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
   const { slug } = useParams();
   // console.log(slug, "sono slug");
   const [FormVisibile, setFormVisibile] = useState(false);
@@ -31,7 +31,6 @@ function PaginaDettaglio() {
   const [contactEmail, setContactEmail] = useState('');
   const [contactMessage, setContactMessage] = useState('');
   const [contactErrors, setContactErrors] = useState({});
-
 
   // FUNZIONI PER APRIRE E CHIUDERE IL FORM
 
@@ -99,6 +98,7 @@ function PaginaDettaglio() {
       setContactEmail('');
       setContactMessage('');
       console.log('log dentro axios', resp.data);
+      clickInvisibile();
 
     }).catch(err => {
       console.log(err);
@@ -200,10 +200,12 @@ function PaginaDettaglio() {
                   <div>{casaSelezionata.squere_meters}</div>
                   <div>Like: {casaSelezionata.likes}</div>
                   <div><strong>Descrizione: </strong> {casaSelezionata.descr}</div>
-                  <AppLike flag={flag} setFlag={setFlag} id={casaSelezionata.id}></AppLike>
-                  <button onClick={clickVisibile} className={`${style.contactButton}`}>
-                    Contattaci
-                  </button>
+                  <div className={`${style.contLike}`}>
+                    <AppLike flag={flag} setFlag={setFlag} id={casaSelezionata.id}></AppLike>
+                    <button onClick={clickVisibile} className={`${style.contactButton}`}>
+                      Contattaci
+                    </button>
+                  </div>
                 </div>
 
               </div></div>
@@ -299,7 +301,6 @@ function PaginaDettaglio() {
                   name="contactName"
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
-                  onKeyUp={handleKeyUp}
                 />
                 {contactErrors.name && <p className={style.error}>{contactErrors.name}</p>}
 
@@ -310,7 +311,6 @@ function PaginaDettaglio() {
                   name="contactEmail"
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
-                  onKeyUp={handleKeyUp}
                 />
                 {contactErrors.email && <p className={style.error}>{contactErrors.email}</p>}
               </div>
@@ -322,7 +322,6 @@ function PaginaDettaglio() {
                   name="message"
                   value={contactMessage}
                   onChange={(e) => setContactMessage(e.target.value)}
-                  onKeyUp={handleKeyUp}
                 />
                 {contactErrors.message && <p className={style.error}>{contactErrors.message}</p>}
               </div>

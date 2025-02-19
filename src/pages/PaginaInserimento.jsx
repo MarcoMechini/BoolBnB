@@ -138,16 +138,16 @@ function PaginaInserimento() {
                     <div className={`${style.rowForm}`} >
                         <label htmlFor="title">Titolo: </label>
                         <input type="text" onChange={handleInputChange} value={formData.title} name="title" id="title" placeholder="titolo descrittivo" onKeyDown={handleKeyUp} />
-                    {errors.title && <p className={`${style.error}`}>{errors.title}</p>}
+                        {errors.title && <p className={`${style.error}`}>{errors.title}</p>}
                     </div><div className={`${style.rowForm}`}>
-                        
+
                         <label htmlFor="address">Indirizzo: </label>
                         <input type="text" onChange={handleInputChange} value={formData.address} name="address" id="address" placeholder="Via" onKeyDown={handleKeyUp} />
                         {errors.address && <p className={`${style.error}`}>{errors.address}</p>}</div>
                     <div className={`${style.rowForm}`}>
                         <label htmlFor="city">Città: </label>
                         <input type="text" onChange={handleInputChange} value={formData.city} name="city" id="city" placeholder="Città" onKeyDown={handleKeyUp} />
-                    {errors.city && <p className={`${style.error}`}>{errors.city}</p>}</div><div className={`${style.rowForm}`}>
+                        {errors.city && <p className={`${style.error}`}>{errors.city}</p>}</div><div className={`${style.rowForm}`}>
                         <label htmlFor="rooms">Stanze: </label>
                         <input type="number" onChange={handleInputChange} value={formData.rooms} name="rooms" id="rooms" placeholder="0" onKeyDown={handleKeyUp} />
                         {errors.rooms && <p className={`${style.error}`}>{errors.rooms}</p>}
@@ -168,7 +168,7 @@ function PaginaInserimento() {
                     </div>
                     <div className={`${style.rowForm}`}>
 
-                        
+
                         <label htmlFor="email">Email: </label>
                         <input type="email" onChange={handleInputChange} value={formData.email} name="email" id="email" placeholder="example@gmail.com" onKeyDown={handleKeyUp} />
                         {errors.email && <p className={`${style.error}`}>{errors.email}</p>}
