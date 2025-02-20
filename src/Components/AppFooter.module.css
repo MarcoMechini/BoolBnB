@@ -3,11 +3,12 @@
     background-color: #2754a3;
     height: 100px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    padding: 0px 15px;
 }
 
 p{
     color:#f0e4ce;
-    font-size: 1.3rem;
+    font-size: 0.9rem;
 }
