@@ -223,6 +223,7 @@ function PaginaDettaglio() {
                 <div >{curRecensione.username}</div>
                 <div>Notti trascorse:&nbsp;{curRecensione.length_of_stay}</div>
                 <div><strong>Recensione:</strong></div>
+                <div>Data: {curRecensione.date.slice(0, 10).split('-').reverse().join('/')} </div>
                 <div>{curRecensione.review_content}</div>
               </div>
             ))}
