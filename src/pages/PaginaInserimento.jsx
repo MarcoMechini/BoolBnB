@@ -134,7 +134,7 @@ function PaginaInserimento() {
                             onKeyDown={handleKeyUp}
 
                         >
-                            <option defaultChecked value='0'>Seleziona una tipologia</option>
+                            <option defaultChecked value='0'>Seleziona una tipologia di immobile</option>
                             {property.map(curProp => (
                                 <option key={curProp.id} value={curProp.id}>{curProp.type}</option>
                             ))}
