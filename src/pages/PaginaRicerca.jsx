@@ -77,6 +77,7 @@ function PaginaRicerca() {
             navigate(`/Ricerca?${filtersArr.join('&')}`);
         }).catch(err => {
             console.log(err);
+            console.log(filtroCittà);
             setFiltroCittà([])
         });
     }
@@ -85,7 +86,6 @@ function PaginaRicerca() {
         <>
             <section className="container">
                 <button className={`${styles.genericButton}`} onClick={() => navigate(-1)}>Indietro</button>
-
                 <div>
                     {/* inizio filtri ricerca avanzata */}
                     <section className={`${styles.rowForm}`}>
@@ -119,7 +119,7 @@ function PaginaRicerca() {
 
                     </div>
                     <h1 className={`${styles.title}`}>Risultati della ricerca</h1>
-                    {filtroCittà.length > 0 ? (
+                    {filtroCittà.length >= 1 ? (
                         filtroCittà.map((curCasa) => (
                             <div key={curCasa.id}  >
                                 <div className={`${styles.card}`}>
@@ -129,6 +129,9 @@ function PaginaRicerca() {
                                             <div>Città: <strong>{curCasa.city}</strong> </div>
                                             <div>{curCasa.address}</div>
                                             <div>{curCasa.title}</div>
+                                            <div>Camere: {curCasa.rooms}</div>
+                                            <div>Letti: {curCasa.bedrooms}</div>
+                                            <div>Bagni: {curCasa.bathrooms}</div>
                                         </div>
                                         <div className={`${styles.rowLike}`}>
                                             <Link className={`${styles.infoButton}`} to={`/Ricerca/${curCasa.slug}`}><div className={`${styles.info}`}>INFO</div></Link>
@@ -136,7 +139,7 @@ function PaginaRicerca() {
                                 </div></div>
                         ))
                     ) : (
-                        <p>Nessuna casa trovata! Usa la ricerca vanzata per trovare quello che cerchi</p>
+                        <p className={styles.reset}>Nessuna casa trovata! Usa la ricerca avanzata per trovare quello che cerchi</p>
                     )}
                 </div>
             </section>

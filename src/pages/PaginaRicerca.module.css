@@ -1,9 +1,10 @@
-.title{
-    color: #c14e07; ;
+.title {
+    color: #c14e07;
+    ;
 }
 
-.card{
-    background-color:#2754a3;
+.card {
+    background-color: #2754a3;
     color: white;
     margin: 10px;
     width: 100%;
@@ -13,85 +14,100 @@
     border-radius: 12px;
     overflow: hidden;
 }
-.colCard1{
+
+.colCard1 {
     width: 60%;
     object-fit: cover;
     background-color: #c14e07;
 }
-.colCard2{
+
+.colCard2 {
     width: 35%;
     padding: 1%;
-    
+
 }
-.rowDescr{
+
+.rowDescr {
     width: 100%;
     height: 80%;
     display: flex;
-  flex-direction: column;
-  gap: 5px;
+    flex-direction: column;
+    gap: 5px;
 }
-.rowLike{
+
+.rowLike {
     width: 100%;
     display: flex;
     justify-content: space-between;
     height: 20%;
 }
-.infoButton{
-    background-color:  #c14e07 ;
+
+.infoButton {
+    background-color: #c14e07;
     color: white;
     border-radius: 10px;
     height: 18px;
     padding: 1%;
-    
-    
+
+
 }
+
 /* Form layout */
 
-.rowForm{
+.rowForm {
     display: flex;
     justify-content: center;
     margin: 1%;
     gap: 5px;
 }
-.titleForm{
+
+.titleForm {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.genericButton{
-    background-color:  #c14e07 ;
+.genericButton {
+    background-color: #c14e07;
     color: white;
     border-radius: 10px;
     padding: 4px;
     text-align: center;
     border: none;
 }
-.infoButton{ 
+
+.infoButton {
     color: white;
-    
+
 }
-.info{
+
+.info {
     animation: movimento 2s ease-in-out infinite;
+}
+
+.reset {
+    color: var(--arancione);
 }
 
 @keyframes movimento {
     0% {
-        transform: scale(1); 
+        transform: scale(1);
     }
+
     50% {
-        transform: scale(0.9); 
+        transform: scale(0.9);
     }
+
     100% {
-        transform: scale(1); 
-}
+        transform: scale(1);
+    }
 }
 
 
 /* MEDIA QUERY */
 @media (max-width: 900px) {
 
-    .rowForm{
+    .rowForm {
         margin: 1%;
         gap: 5px;
     }
@@ -101,14 +117,15 @@
 
 @media (max-width: 700px) {
 
-    .rowForm{
+    .rowForm {
         flex-direction: column;
         margin: 5%;
         gap: 5px;
 
     }
-    .genericButton{
-        background-color:  #c14e07 ;
+
+    .genericButton {
+        background-color: #c14e07;
         color: white;
         border-radius: 10px;
         padding: 2px;
@@ -117,5 +134,3 @@
     }
 
 }
-
-

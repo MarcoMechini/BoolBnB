@@ -197,7 +197,7 @@ function PaginaDettaglio() {
                   <div>città:&nbsp;{casaSelezionata.city}</div>
                   <div>Mq:&nbsp;{casaSelezionata.square_meters}</div>
                   <div>Stanze da Letto: {casaSelezionata.rooms}</div>
-                  <div>letti: {casaSelezionata.bedrooms}</div>
+                  <div>Letti: {casaSelezionata.bedrooms}</div>
                   <div>Bagni: {casaSelezionata.bathrooms}</div>
                   <div>Like: {casaSelezionata.likes}</div>
                   <div className={`${style.descrCard}`}><strong>Descrizione:&nbsp;</strong> <div> {casaSelezionata.descr}</div></div>
@@ -222,8 +222,8 @@ function PaginaDettaglio() {
               <div className={`${style.cardReview}`} key={index}>
                 <div >{curRecensione.username}</div>
                 <div>Notti trascorse:&nbsp;{curRecensione.length_of_stay}</div>
-                <div><strong>Recensione:</strong></div>
                 <div>Data: {curRecensione.date.slice(0, 10).split('-').reverse().join('/')} </div>
+                <div><strong>Recensione:</strong></div>
                 <div>{curRecensione.review_content}</div>
               </div>
             ))}

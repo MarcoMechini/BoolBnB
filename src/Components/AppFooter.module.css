@@ -1,5 +1,5 @@
-.footer{
-    margin-top: 335px; 
+.footer {
+    margin-top: 30px;
     background-color: #2754a3;
     height: 100px;
     display: flex;
@@ -8,7 +8,7 @@
     padding: 0px 15px;
 }
 
-p{
-    color:#f0e4ce;
+p {
+    color: #f0e4ce;
     font-size: 0.9rem;
 }

@@ -17,6 +17,7 @@ img {
 .container {
   margin: 0 auto;
   max-width: 1600px;
+  min-height: calc(100vh - 250px);
   width: 90%;
   text-align: center;
 }
