@@ -1,7 +1,6 @@
-
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link, useParams } from "react-router-dom";
 import AppLike from "../Components/AppLike";
 import styles from './PaginaRicerca.module.css';
 import { set } from "react-hook-form";
@@ -11,8 +10,9 @@ const apiUrl = import.meta.env.VITE_API_URL
 function PaginaRicerca() {
 
     const location = useLocation();
+    const navigate = useNavigate();
     const initialFilters = {
-        city: location.state?.city || [],
+        city: location.state?.city || '',
         bedrooms: '',
         bathrooms: '',
         id_property: 0,
@@ -20,10 +20,10 @@ function PaginaRicerca() {
 
 
     const [filtroCittà, setFiltroCittà] = useState(location.state?.filtroCittà || [])
-    const navigate = useNavigate()
     const [filter, setFilter] = useState(initialFilters)
     const [property, setProperty] = useState([])
     const [flag, setFlag] = useState(0);
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
 
     const handleInputChange = (e) => {
         setFilter({ ...filter, [e.target.name]: e.target.value })
@@ -36,7 +36,33 @@ function PaginaRicerca() {
             console.log(err);
             setProperty([])
         });
+
+        const searchParams = new URLSearchParams(location.search);
+
+        const urlCity = searchParams.get('city') || '';
+        const urlBedrooms = searchParams.get('bedrooms') || '';
+        const urlBathrooms = searchParams.get('bathrooms') || '';
+        const urlId_property = searchParams.get('id_property') || '';
+
+        setFilter({
+            city: urlCity,
+            bedrooms: urlBedrooms,
+            bathrooms: urlBathrooms,
+            id_property: urlId_property,
+        })
+
+        setIsInitialLoad(true);
+
     }, [flag])
+
+    useEffect(() => {
+        if (isInitialLoad) {
+            console.log('filter', filter);
+
+            ricercaMulti();
+            setIsInitialLoad(false);
+        }
+    }, [filter]);
 
     //stanze posti letto e tipo immobile
     const ricercaMulti = () => {
